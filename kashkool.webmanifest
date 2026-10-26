@@ -1,0 +1,13 @@
+{
+  "name": "KashKool Mobile",
+  "short_name": "KashKool",
+  "description": "KashKool study platform with account and cloud sync setup",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#101827",
+  "theme_color": "#101827",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": []
+}
