@@ -1,0 +1,1251 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<!--
+  KASHKOOL v70 — modular source build
+  Styles are collected in assets/css/kashkool.css.
+  JavaScript modules are kept in assets/js and loaded in their original order.
+  Keep the sequence in index.html unchanged: several later modules extend the core app.
+-->
+
+<meta charset="utf-8">
+<script src="./assets/js/00-bootstrap.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KashKool v70 — Notifications & Desktop Background</title>
+<link rel="manifest" href="./kashkool.webmanifest">
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAIAAADdvvtQAAADTklEQVR4nO3dMW4USQBAUUB7Ak4AySARgkggWGdE5L4AF+EaXIB8I7IlILLY0BIkvgqBJWStVtrBf6q7uue9aKKelvtPVY3kqnn45PD6AdzXo7VvgG0TEImASAREIiASAZEIiERAJAIiERCJgEgERCIgEgGRCIhEQCR/LPM2N9efl3mjHfjx6dXQ67/98PiEVxs+At1cf1bPbzlcXq19C79hYEDSubcNNTQqIOmciYXWQPfz159vbl+8+/J13TtZ3uHyavRi6CSGjECGn5PYxETma/zU5m/o9AEZfk5r8oaMQCQC2oCZByEBbcO0DQloM+ZsSEAkAtqSCQchAW3MbA0JaHumakhAmzRPQwIiEdBWTTIICWjDZmhIQNu2ekMC2rzD5dWKGQloJ9ZqSED7sUpDAtqV5aczAe3Qkg0JaJ8Wa0hAu7XMdCagnRvdkID2b2hDAjoL46YzAZ2REQ0J6LycvCEBkQiI5NjjXb79/fH2xcuL98Nuhu05agT6Vc+/XoMpjERAJEcFdHfdYw3EXccuonXDfzKFkQiIREAkAiIREImASAREIiASAZEIiERAJAIiERCJgEgERCIgEgGRTP2rzUf6/s+5/8jmsxdv13rrPQS04p8PUxiJgEgERCIgEgGRCIhEQCQCIhEQiYBIBEQiIBIBkQiIREAkAiIREImT6kmcVE9iCiPZwz/V25Ux+66MlxfvZ14D2ZWxIifVk1gDkQiIREAkAiIREImASAREIiASAZEIiERAJAIiERCJgEgERCIgEgGRCIhEQCR2ZezB7LsyJmdXxopMYSQCIhEQiYBIBEQiIBIBkQiIREAkAiIREImASAREIiASAZE4qZ7ESfUkpjASAZEcFdDddY81EHft4aR6uzLsykjsyliRNRCJgEgERCIgEgGRCIhEQCQCIhEQiYBIBEQiIBIBkQiIREAkAiIREImASAREIiASAZEIiERAJAIiERCJgEhOH9DT5zYaz+vkT8cIRDIkIIPQnEY8l6lP53j35evat8D/GDWFGYRmM+iJPHxyeD3iur/cXJ/76U+rG/phHh7QLRmtYoF5YKGA2Ctf40kERCIgEgGRCIhEQCQCIhEQiYBIBEQiIBIBkQiIREAkAiL5CUA5gOWHbLIJAAAAAElFTkSuQmCC" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAADK0lEQVR4nO3dPW4TQQCAUUCcgBNAYyRKEA0U0FHR5wJchGtwAXoqOiioIigjQZOrUCChiPBhi+zPrP1etdXacr7MzErj8e37u2e34G/urP0GGJc4SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIg3Z317pcXH2e9/6b9eP90pju/entvkvvMNXJcXnxUxr/tzs7Xfgt7zBKHLA40eB/Tx6GMozHxmuPmZXx48fzXxevPX278djZgd3Y+3+LjhjytrG/YyWXKOEwo/23MPowcoxiwD3EMZLQ+xEESx1iGGjzEMZxx+hDHiAbpQxyDGqEPcYxr9T7EQRLH0NYdPMQxuhX7EMcGrNWHOLZhd3a+fCLi2JKF+xDHxizZhzi2Z7E+xLFJyyxBxLFhc/chjm2btQ9xbN58fYjjGMy0BBHH8Zi8D3EclWn7EMexmbCPQ78O+fXTu18XT16+meq1GdxBI8fvMv645rjtj+N6Dfo4EdYcJHGQ9sdxfQVqTXoiDho5rtagjNNx6KOsJk6QNQdJHCRxkMRBEgdJHCRxkMRBEgdJHCRxkMRBEgdJHCRxkOb9dcj5fP92cr/t8vDxq4VfcatxLP9JnSDTCkkcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQnENKcg4pyTmkJGsO0lb3kNpgvID9cTx5+eaPeWSENakNxgtwDinJOaQkC1KSOEjiIImDJA6SOEjiIImDJA6SOEjiIImDJA6SOEjiIImDJA6SDcabMeIG4zHZYLwA0wpJHCRxkMRBEgdJHCRxkMRBEgdJHCRxkMRBEgfJOaQk55CSnENKsuYgiYO0P47rK1Br0hNx0NPK1XNqBynDBuMFbPUcUhuMF2DNQRIHSRwkcZDEQRIHSRwkcZDEQRIHSRwkcZDEQRIHSRwkcZDEQRIHSRwkcZDEQRIHSRwkcZCmjOPBI180Wt+EfwUjB+n2/d2zae94eXFy32Idx7SD9/Qjh8llLZN/8rNMK/pY3hyf+fTTylWmmAXM9684bxxsmqcVkjhI4iCJgyQOkjhI4iCJgyQOkjhI4iCJgyQOkjhIPwH27o4gFEhUcQAAAABJRU5ErkJggg==">
+<meta name="theme-color" content="#20263A">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Kashkool">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Baloo+Bhaijaan+2:wght@500;700&family=Lalezar&family=Rakkas&family=Readex+Pro:wght@300;400;600&family=Tajawal:wght@500;800&family=El+Messiri:wght@500;700&family=Reem+Kufi:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./assets/css/kashkool.css">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ===== CSS LAYERS moved from <body> (order unchanged) ===== -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <h1 class="brand">Kashkool<small>Lessons · Homework · Weekly schedule</small></h1>
+    <div class="mastActions">
+      <button class="ghost accountChip" id="accountBtn" type="button" title="الحساب"><span id="accountName">حسابي</span> ▾</button>
+      <button class="iconbtn" id="searchBtn" type="button" aria-label="Search">🔍</button>
+      <button class="iconbtn kkBrainBtn" id="kkCommandBtn" type="button" aria-label="Command center" title="Command center">🧠</button>
+      <button class="ghost" id="themeBtn" type="button">Dark mode</button>
+      <button class="ghost" id="langBtn" type="button">English</button>
+    </div>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="Sections">
+    <button class="tab" role="tab" data-view="dashboard" aria-selected="false">Dashboard</button>
+    <button class="tab" role="tab" data-view="today" aria-selected="true">Today</button>
+    <button class="tab" role="tab" data-view="pomo" aria-selected="false">Timer</button>
+    <button class="tab" role="tab" data-view="studyplan" aria-selected="false">Study system</button>
+    <button class="tab" role="tab" data-view="stats" aria-selected="false">Progress</button>
+    <div class="navMore">
+      <button class="navMore__btn" id="moreNavBtn" type="button" aria-haspopup="menu" aria-expanded="false"><span class="navMore__label">More</span><span class="navMore__icon" aria-hidden="true">⋯</span><span class="navMore__dot" aria-hidden="true"></span></button>
+      <div class="navMore__menu" id="moreNavMenu" role="menu" aria-label="More sections" hidden>
+        <div class="navGroup" role="group" aria-label="Planner">
+          <div class="navGroup__label" data-nav-group="planner">التخطيط</div>
+          <button class="tab" role="menuitem" tabindex="-1" data-view="week" aria-selected="false">Week</button>
+          <button class="tab" role="menuitem" tabindex="-1" data-view="track" aria-selected="false">Track</button>
+          <button class="tab" role="menuitem" tabindex="-1" data-view="hw" aria-selected="false">Homework <span class="count" id="hwCount"></span></button>
+          <button class="tab" role="menuitem" tabindex="-1" data-view="exams" aria-selected="false">Exams</button>
+        </div>
+        <div class="navGroup" role="group" aria-label="Library">
+          <div class="navGroup__label" data-nav-group="library">المكتبة</div>
+          <button class="tab" role="menuitem" tabindex="-1" data-view="links" aria-selected="false">Resources</button>
+          <button class="tab" role="menuitem" tabindex="-1" data-view="notes" aria-selected="false">Notes</button>
+          <button class="tab" role="menuitem" tabindex="-1" data-view="flashcards" aria-selected="false" id="flashcardsNav">🧠 Flashcards</button>
+          <button class="tab" role="menuitem" tabindex="-1" data-view="subjects" aria-selected="false">Subjects</button>
+        </div>
+        <div class="navGroup" role="group" aria-label="Personalization">
+          <div class="navGroup__label" data-nav-group="personalize">التخصيص</div>
+          <button class="tab" role="menuitem" tabindex="-1" data-view="themeStudio" aria-selected="false">🎨 Theme Studio</button>
+          <button class="tab storeNavTab" role="menuitem" tabindex="-1" data-view="store" aria-selected="false">Store</button>
+          <button class="tab" role="menuitem" tabindex="-1" data-view="settings" aria-selected="false">Settings</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div id="notice"></div>
+  <div id="tip"></div>
+
+  <main id="kashkool-main">
+    <section class="view" id="view-dashboard" hidden>
+      <div class="dashboardTop">
+        <div><h2 id="dashboardHeading">Dashboard</h2><p id="dashboardHint">Your study day at a glance.</p></div>
+        <button class="add" type="button" data-dash-view="pomo" id="dashboardStartBtn">Start a study session</button>
+      </div>
+      <section class="dashPriority" id="dashPriorityCard" data-priority="focus" aria-labelledby="dashPriorityTitle" aria-live="polite">
+        <div class="dashPriority__icon" id="dashPriorityIcon" aria-hidden="true">✦</div>
+        <div class="dashPriority__copy">
+          <span class="dashPriority__eyebrow" id="dashPriorityEyebrow">خطوتك التالية</span>
+          <h3 id="dashPriorityTitle">ابدأ جلسة مذاكرة قصيرة</h3>
+          <p id="dashPriorityDesc">لا توجد مهام عاجلة الآن. اختر مادة وابدأ من حيث توقفت.</p>
+        </div>
+        <div class="dashPriority__action">
+          <span class="dashPriority__reason" id="dashPriorityReason">اقتراح ذكي</span>
+          <button class="primary" type="button" data-dash-view="pomo" id="dashPriorityButton">ابدأ المذاكرة</button>
+        </div>
+      </section>
+      <div class="dashboardGrid">
+        <article class="dashMetric"><span class="dashMetric__label" id="dashStreakLabel">Streak</span><div class="dashStreak"><span class="dashStreak__fire" aria-hidden="true">🔥</span><span class="dashStreak__num" id="dashStreakValue">0</span><span class="dashStreak__copy"><strong id="dashStreakUnit">days</strong><small id="dashStreakState">At risk</small></span></div></article>
+        <article class="dashMetric"><span class="dashMetric__label" id="dashStudyLabel">Study today</span><strong class="dashMetric__value" id="dashStudyValue">0 min</strong><span class="dashMetric__meta" id="dashStudyMeta">Completed focus time</span></article>
+        <article class="dashMetric"><span class="dashMetric__label" id="dashSessionsLabel">Sessions today</span><strong class="dashMetric__value" id="dashSessionsValue">0</strong><span class="dashMetric__meta" id="dashSessionsMeta">Completed sessions</span></article>
+        <article class="dashMetric"><span class="dashMetric__label" id="dashHwLabel">Open homework</span><strong class="dashMetric__value" id="dashHwValue">0</strong><span class="dashMetric__meta" id="dashHwMeta">Including due today</span></article>
+      </div>
+      <div class="dashColumns">
+        <article class="dashCard"><div class="dashCard__head"><h4 id="dashScheduleTitle">Today</h4><button class="ghost" type="button" data-dash-view="today" id="dashScheduleBtn">Open</button></div><div class="dashList" id="dashScheduleList"></div></article>
+        <article class="dashCard"><div class="dashCard__head"><h4 id="dashExamTitle">Next exam</h4><button class="ghost" type="button" data-dash-view="exams" id="dashExamBtn">View exams</button></div><div id="dashExamBox"></div></article>
+        <article class="dashCard"><div class="dashCard__head"><h4 id="dashSystemTitle">Study system</h4><button class="ghost" type="button" data-dash-view="studyplan" id="dashSystemBtn">Open</button></div><div id="dashSystemBox"></div></article>
+        <article class="dashCard"><div class="dashCard__head"><h4 id="dashHomeworkTitle">Homework</h4><button class="ghost" type="button" data-dash-view="hw" id="dashHomeworkBtn">View homework</button></div><div class="dashList" id="dashHomeworkList"></div></article>
+        <article class="dashCard wide"><div class="dashCard__head"><h4 id="dashWeekTitle">Study this week</h4><small id="dashWeekHint">Minutes completed each day</small></div><div class="dashWeek" id="dashWeekChart"></div><div class="dashActions"><button class="add" type="button" data-dash-view="pomo" id="dashActionTimer">Timer</button><button class="add" type="button" data-add="hw" id="dashActionHomework">+ Homework</button><button class="add" type="button" data-dash-view="studyplan" id="dashActionSystem">Study system</button><button class="add" type="button" data-dash-view="stats" id="dashActionProgress">Progress</button></div></article>
+      </div>
+    </section>
+
+    <section class="view" id="view-today">
+      <div class="hero">
+        <div>
+          <h2 id="todayName">—</h2>
+          <div class="stamp" id="todayDate"></div>
+          <div class="stamp muted" id="todaySummary"></div>
+          <div class="streakBadge" id="todayStreak" aria-live="polite"><span aria-hidden="true">🔥</span><b id="todayStreakValue">0</b><span id="todayStreakLabel">day streak</span><small id="todayStreakState"></small></div>
+        </div>
+        <div class="pulse" id="todayPulse" hidden>
+          <span id="pulseText"></span><b class="pulseClock" id="pulseClock"></b>
+        </div>
+      </div>
+      <div class="cols">
+        <div>
+          <div class="block">
+            <div class="block__head">
+           <h3>Today's schedule</h3>
+              <button class="add" type="button" data-add="entry">+ Lesson or event</button>
+            </div>
+            <div id="todayEntries"><div class="skeleton">Loading…</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="block">
+            <div class="block__head">
+             <h3 id="todayHomeworkHeading">Upcoming homework</h3>
+              <button class="add" type="button" id="todayHomeworkAdd" data-add="hw">+ Homework</button>
+            </div>
+            <div id="todayHw"><div class="skeleton">Loading…</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="view-week" hidden>
+      <div class="block__head">
+        <h3>Weekly schedule <span class="hint" id="weekRange"></span></h3>
+        <button class="add" type="button" data-add="entry">+ Lesson or event</button>
+      </div>
+      <div class="filter" id="weekFilter"></div>
+      <div class="week" id="weekGrid"></div>
+    </section>
+
+    <section class="view" id="view-hw" hidden>
+      <div class="block__head">
+        <h3>Homework</h3>
+        <button class="add" type="button" data-add="hw">+ Homework</button>
+      </div>
+      <div id="hwList"></div>
+    </section>
+
+    <section class="view" id="view-exams" hidden>
+      <div class="block__head">
+        <h3>Exams</h3>
+        <button class="add" type="button" data-add="exam">+ Exam</button>
+      </div>
+      <div class="examHero" id="examHero" hidden>
+        <span class="examHero__label" id="examHeroLabel"></span>
+        <b class="examHero__title" id="examHeroTitle"></b>
+        <span class="examHero__clock" id="examHeroClock"></span>
+      </div>
+      <div id="examList"></div>
+    </section>
+
+    <section class="view" id="view-links" hidden>
+      <div class="block__head">
+        <h3>Resources <span class="hint">YouTube, platforms, files… saved by subject</span></h3>
+        <button class="add" type="button" data-add="link">+ Resource</button>
+      </div>
+      <div class="filter" id="linksFilter"></div>
+      <div id="linksList"></div>
+    </section>
+
+    <section class="view" id="view-track" hidden>
+
+<div class="block__head"><h3><span id="trkTitle"></span> <span class="hint" id="trkHint"></span></h3></div>
+<div id="trkBody"></div>
+</section>
+
+    <section class="view" id="view-notes" hidden>
+      <div class="block__head">
+        <h3>Notes <span class="hint">Anything you want to remember, optionally linked to a subject</span></h3>
+        <button class="add" type="button" data-add="note">+ Note</button>
+      </div>
+      <div class="filter" id="notesFilter"></div>
+      <div id="notesList"></div>
+    </section>
+
+    <section class="view" id="view-pomo" hidden>
+      <div class="block__head"><h3>Study timer</h3></div>
+      <div class="pomo" id="pomoBox">
+        <div class="pomo__top">
+          <div class="pomo__mode" id="pomoMode">Study</div>
+          <button class="iconbtn pomo__sound" type="button" id="pomoSound">🔔</button>
+        </div>
+        <div class="pomo__presets" id="pomoPresets" role="group"></div>
+        <div class="studySubjectPicker">
+          <div><strong id="pomoSubjectLabel">المادة</strong><small id="pomoSubjectHint">اختار المادة اللي هتذاكرها عشان تتحسب في إحصائياتها.</small></div>
+          <select id="pomoSubject" aria-label="المادة"></select>
+        </div>
+        <div class="pomo__ring" id="pomoRing">
+          <div class="pomo__face">
+            <div class="pomo__clock" id="pomoClock" role="timer" aria-live="off">25:00</div>
+            <div class="pomo__hint" id="pomoHint">Ready when you are</div>
+          <div class="pomo__counted" id="pomoCounted"></div>
+          </div>
+        </div>
+        <div class="pomo__dots" id="pomoDots" aria-hidden="true"></div>
+        <div class="pomo__round" id="pomoRound">Round 1 of 4</div>
+        <div class="pomo__next" id="pomoNext">Next: Short break</div>
+        <div class="pomo__controls">
+          <button class="primary" type="button" id="pomoToggle">Start</button>
+          <button class="ghost" type="button" id="pomoSkip">Skip</button>
+          <button class="ghost" type="button" id="pomoExtend" title="+5">+5</button>
+          <button class="ghost" type="button" id="pomoReset">Reset</button>
+          <button class="ghost" type="button" id="pomoFocusBtn">Focus mode</button>
+        </div>
+        <div class="pomo__keys" id="pomoKeys">Press Space to start / pause</div>
+        <div class="pomo__today" id="pomoToday"></div>
+        <details class="pomo__settings">
+          <summary>Timer settings</summary>
+          <div class="pair">
+            <div><label for="p_work">Study (minutes)</label><input type="number" id="p_work" min="1" max="180" value="25"></div>
+            <div><label for="p_break">Short break (minutes)</label><input type="number" id="p_break" min="1" max="60" value="5"></div>
+          </div>
+          <div class="pair">
+            <div><label for="p_long">Long break (minutes)</label><input type="number" id="p_long" min="1" max="120" value="15"></div>
+            <div><label for="p_rounds">Long break every (rounds)</label><input type="number" id="p_rounds" min="1" max="12" value="4"></div>
+          </div>
+          <label class="checkline"><input type="checkbox" id="p_auto" checked> <span id="p_autoLabel">Start the next phase automatically</span></label>
+          <button class="add" type="button" id="p_apply">Apply</button>
+        </details>
+        <div class="sr-only" id="pomoAnnounce" role="status" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="view" id="view-studyplan" hidden>
+      <div class="block__head">
+        <h3 id="studyPlanHeading">أنظمة المذاكرة</h3>
+        <button class="add" type="button" id="studyAddSystem">+ إضافة نظام</button>
+      </div>
+      <div class="studyIntro" id="studyPlanIntro">اختار نظام مذاكرة، نفّذ خطواته بالترتيب، وعلّم على كل خطوة بعد ما تخلصها.</div>
+      <div class="studySystems" id="studySystems"></div>
+      <div class="block__head" style="padding-top:10px">
+        <h3 id="studyActiveSystemTitle">النظام الحالي</h3>
+        <button class="ghost" type="button" id="studyPlanReset">إعادة الخطوات</button>
+      </div>
+      <div class="studyIntro" id="studyActiveSystemDesc"></div>
+      <div class="studySubjectRow"><label for="studySubject" id="studySubjectLabel">المادة</label><select id="studySubject"></select></div>
+      <div class="studySteps" id="studySteps"></div>
+      <div class="studyProgress" aria-live="polite">
+        <div class="studyProgress__line"><span id="studyProgressLabel">التقدم</span><b id="studyProgressValue">0/0</b></div>
+        <div class="studyProgress__bar"><i id="studyProgressBar"></i></div>
+      </div>
+    </section>
+    <section class="view" id="view-flashcards" hidden>
+      <div class="block__head"><div><h3 id="kkfc-title">بطاقات المراجعة</h3><span class="hint" id="kkfc-subtitle">استرجع المعلومة من ذاكرتك، ثم اكشف الإجابة وقيّم صعوبتها.</span></div><button class="add" type="button" id="kkfc-new">+ بطاقة جديدة</button></div>
+      <section class="kkfc-overview" aria-label="Flashcard overview">
+        <article class="kkfc-stat"><span id="kkfc-total-label">إجمالي البطاقات</span><strong id="kkfc-total">0</strong></article>
+        <article class="kkfc-stat"><span id="kkfc-due-label">مستحقة للمراجعة</span><strong id="kkfc-due">0</strong></article>
+        <article class="kkfc-stat"><span id="kkfc-reviewed-label">مراجعات اليوم</span><strong id="kkfc-reviewed">0</strong></article>
+      </section>
+      <section class="kkfc-practice panel">
+        <div class="kkfc-practice-head"><div><span class="kkfc-kicker" id="kkfc-practice-kicker">جلسة استرجاع نشط</span><h4 id="kkfc-practice-title">اختبر ذاكرتك</h4><p id="kkfc-practice-help">اقرأ السؤال وحاول الإجابة قبل الضغط على كشف الإجابة.</p></div><span class="kkfc-queue" id="kkfc-queue">0 / 0</span></div>
+        <article class="kkfc-card-face" id="kkfc-card-face" aria-live="polite"><div class="kkfc-face-label" id="kkfc-face-label">السؤال</div><div class="kkfc-face-text" id="kkfc-front-text">أضف بطاقتك الأولى لتبدأ المراجعة.</div><div class="kkfc-answer" id="kkfc-answer" hidden><hr><div class="kkfc-face-label" id="kkfc-answer-label">الإجابة</div><div class="kkfc-face-text" id="kkfc-back-text"></div></div></article>
+        <div class="kkfc-actions"><button class="primary" type="button" id="kkfc-reveal">كشف الإجابة</button><button class="ghost" type="button" id="kkfc-next" hidden>التالي</button><button class="ghost" type="button" id="kkfc-all-due">تحميل البطاقات المستحقة</button></div>
+        <div class="kkfc-ratings" id="kkfc-ratings" hidden><span id="kkfc-rate-hint">قيّم مدى سهولة التذكر:</span><button type="button" data-kkfc-rate="again" class="kkfc-rate kkfc-rate--again">مرة أخرى</button><button type="button" data-kkfc-rate="hard" class="kkfc-rate">صعبة</button><button type="button" data-kkfc-rate="good" class="kkfc-rate">جيدة</button><button type="button" data-kkfc-rate="easy" class="kkfc-rate kkfc-rate--easy">سهلة</button></div>
+      </section>
+      <section class="kkfc-library"><div class="block__head"><div><h4 id="kkfc-library-title">مكتبة البطاقات</h4><span class="hint" id="kkfc-library-hint">تُحفظ على هذا الجهاز مع بيانات الحساب الحالي.</span></div><input type="search" id="kkfc-filter" class="kkfc-filter" placeholder="ابحث في البطاقات…" aria-label="Search flashcards"></div><div class="kkfc-list" id="kkfc-list"></div></section>
+      <dialog id="kkfc-dialog"><form method="dialog" id="kkfc-form"><div class="dlg__head"><h3 id="kkfc-dialog-title">بطاقة جديدة</h3><button class="dlgClose" type="button" id="kkfc-close" aria-label="Close">×</button></div><div class="dlg__body"><label for="kkfc-subject-input" id="kkfc-subject-label">المادة أو التصنيف</label><input id="kkfc-subject-input" maxlength="60" placeholder="مثال: علوم" autocomplete="off"><label for="kkfc-front-input" id="kkfc-front-label">السؤال / وجه البطاقة</label><textarea id="kkfc-front-input" required maxlength="2000" rows="3" placeholder="اكتب سؤالًا واضحًا"></textarea><label for="kkfc-back-input" id="kkfc-back-label">الإجابة / ظهر البطاقة</label><textarea id="kkfc-back-input" required maxlength="4000" rows="4" placeholder="اكتب الإجابة أو الشرح"></textarea><p class="kkfc-form-hint" id="kkfc-form-hint">نصيحة: اكتب سؤالًا يساعدك على استرجاع الفكرة بدل حفظ فقرة طويلة.</p></div><div class="dlg__foot"><button class="primary" type="submit" id="kkfc-save">حفظ البطاقة</button><button class="ghost" type="button" id="kkfc-cancel">إلغاء</button></div></form></dialog>
+    </section>
+
+    <section class="view" id="view-themeStudio" hidden>
+      <div class="block__head">
+        <h3 id="ts-heading">🎨 استوديو الثيمات</h3>
+        <span class="hint" id="ts-subheading">خصص ألوان واجهة التطبيق حسب رغبتك</span>
+      </div>
+      
+      <div class="themeStudio">
+        <div class="themeStudio__preview">
+          <div class="themeStudio__card">
+            <div class="ts-preview-kicker"><span class="ts-preview-dot"></span><span id="ts-preview-kicker">معاينة مباشرة</span><span class="ts-live-badge" id="ts-live-badge">مباشر</span></div>
+            <h4 id="ts-preview-title">شكل الكشكول بعد تطبيق الثيم</h4>
+            <p id="ts-preview-copy">غيّر الألوان وشاهد تأثيرها فورًا على البطاقات والأزرار والنصوص.</p>
+            <div class="ts-preview-actions"><button class="primary" type="button" id="ts-preview-primary">زر أساسي</button><button class="ghost" type="button" id="ts-preview-secondary">زر ثانوي</button></div>
+          </div>
+          <div class="ts-showcase">
+            <div class="ts-showcase__head"><div><span class="ts-showcase__eyebrow" id="ts-components-eyebrow">مكونات الواجهة</span><h4 id="ts-components-title">مش مجرد ألوان</h4></div><span class="ts-showcase__hint" id="ts-components-hint">معاينة حية</span></div>
+            <div class="ts-metrics">
+              <article class="ts-metric"><span id="ts-metric-one-label">وقت المذاكرة</span><strong id="ts-metric-one-value">2س 35د</strong><i><b style="width:68%"></b></i></article>
+              <article class="ts-metric"><span id="ts-metric-two-label">الواجبات</span><strong>4/6</strong><i><b style="width:66%"></b></i></article>
+              <article class="ts-metric"><span id="ts-metric-three-label">الستريك</span><strong>🔥 7</strong><small id="ts-metric-three-hint">أيام متتالية</small></article>
+            </div>
+            <article class="ts-sample-card"><div class="ts-sample-card__head"><span class="ts-sample-icon">◷</span><div><strong id="ts-schedule-title">جلسة المذاكرة القادمة</strong><small id="ts-schedule-subtitle">رياضيات · ٤:٣٠ م</small></div><span class="ts-sample-pill" id="ts-schedule-state">قريبًا</span></div><div class="ts-sample-progress"><i></i></div><div class="ts-sample-foot"><span id="ts-sample-progress-label">التقدم اليومي</span><b>68%</b></div></article>
+            <article class="ts-mini-timer"><div><span class="ts-mini-timer__eyebrow" id="ts-timer-eyebrow">وضع التركيز</span><strong>24:18</strong><small id="ts-timer-caption">وقت للتركيز، بعيدًا عن المشتتات</small></div><span class="ts-timer-ring"><span>▶</span></span></article>
+            <div class="ts-contrast" id="ts-contrast" aria-live="polite"><span class="ts-contrast__icon" id="ts-contrast-icon">✓</span><div><strong id="ts-contrast-title">وضوح النص</strong><small id="ts-contrast-desc">نحسب التباين بين النص وخلفية البطاقة.</small></div><b id="ts-contrast-value">—</b></div>
+          </div>
+        </div>
+        
+        <div class="themeStudio__controls">
+          <div class="ts-store-note" id="ts-store-note"><span aria-hidden="true">ⓘ</span><span id="ts-store-note-text">تخصيص الألوان يعمل مع الثيم الافتراضي؛ ثيمات المتجر تحتفظ بهويتها وألوانها.</span></div>
+          <div class="themeStudio__section">
+            <h4 id="ts-basic-title">الألوان الأساسية</h4>
+            <div class="themeStudio__row">
+              <label>
+                <span id="ts-paper-label">الخلفية الرئيسية</span>
+                <input type="color" id="ts-paper" value="#F3EEE4">
+              </label>
+              <label>
+                <span id="ts-sheet-label">خلفية البطاقات</span>
+                <input type="color" id="ts-sheet" value="#FCF9F2">
+              </label>
+            </div>
+            <div class="themeStudio__row">
+              <label>
+                <span id="ts-ink-label">لون النص</span>
+                <input type="color" id="ts-ink" value="#1F2733">
+              </label>
+              <label>
+                <span id="ts-ink-soft-label">لون النص الثانوي</span>
+                <input type="color" id="ts-ink-soft" value="#485568">
+              </label>
+            </div>
+            <div class="themeStudio__row">
+              <label>
+                <span id="ts-ink-faint-label">لون النص الهادئ</span>
+                <input type="color" id="ts-ink-faint" value="#657182">
+              </label>
+              <label>
+                <span id="ts-line-soft-label">لون الفواصل</span>
+                <input type="color" id="ts-line-soft" value="#E8E0D4">
+              </label>
+            </div>
+            <div class="themeStudio__row">
+              <label>
+                <span id="ts-hover-label">خلفية التفاعل</span>
+                <input type="color" id="ts-hover" value="#EEE7DA">
+              </label>
+              <label>
+                <span id="ts-field-label">خلفية حقول الإدخال</span>
+                <input type="color" id="ts-field" value="#FFFDF9">
+              </label>
+            </div>
+          </div>
+          
+          <div class="themeStudio__section">
+            <h4 id="ts-accent-title">ألوان التمييز</h4>
+            <div class="themeStudio__row">
+              <label>
+                <span id="ts-mark-label">اللون الرئيسي</span>
+                <input type="color" id="ts-mark" value="#C79222">
+              </label>
+              <label>
+                <span id="ts-mark-bg-label">خلفية التمييز</span>
+                <input type="color" id="ts-mark-bg" value="#F4E9C8">
+              </label>
+            </div>
+            <div class="themeStudio__row">
+              <label>
+                <span id="ts-margin-label">لون التنبيه</span>
+                <input type="color" id="ts-margin" value="#A83B31">
+              </label>
+              <label>
+                <span id="ts-ok-label">لون النجاح</span>
+                <input type="color" id="ts-ok" value="#2F765B">
+              </label>
+            </div>
+          </div>
+          
+          <div class="themeStudio__section">
+            <h4 id="ts-borders-title">الحدود والخطوط</h4>
+            <div class="themeStudio__row">
+              <label>
+                <span id="ts-line-label">لون الحدود</span>
+                <input type="color" id="ts-line" value="#D7CCB9">
+              </label>
+              <label>
+                <span id="ts-grid-label">خط الشبكة</span>
+                <input type="color" id="ts-grid" value="#E2DACB">
+              </label>
+            </div>
+          </div>
+          
+          <div class="themeStudio__presets">
+            <h4 id="ts-presets-title">ثيمات جاهزة</h4>
+            <div class="themeStudio__preset-grid">
+              <button class="themeStudio__preset" type="button" data-theme="default"><span class="themeStudio__preview-dot" style="background:#F3EEE4"></span><span id="ts-preset-default-label">الافتراضي</span></button>
+              <button class="themeStudio__preset" type="button" data-theme="ocean"><span class="themeStudio__preview-dot" style="background:#E8F4F8"></span><span id="ts-preset-ocean-label">محيط</span></button>
+              <button class="themeStudio__preset" type="button" data-theme="forest"><span class="themeStudio__preview-dot" style="background:#E8F5E9"></span><span id="ts-preset-forest-label">غابة</span></button>
+              <button class="themeStudio__preset" type="button" data-theme="sunset"><span class="themeStudio__preview-dot" style="background:#FFF3E0"></span><span id="ts-preset-sunset-label">غروب</span></button>
+              <button class="themeStudio__preset" type="button" data-theme="lavender"><span class="themeStudio__preview-dot" style="background:#F3E5F5"></span><span id="ts-preset-lavender-label">خزامى</span></button>
+            </div>
+          </div>
+          
+          <div class="themeStudio__section ts-motion-panel">
+            <h4 id="ts-motion-title">الحركة والمؤثرات</h4>
+            <p id="ts-motion-desc" class="ts-motion-desc">خصّص سرعة الانتقالات والمؤثرات المحيطة مع الحفاظ على شخصية كل ثيم.</p>
+            <div class="ts-motion-config">
+              <label for="ts-motion-speed"><span id="ts-motion-speed-label">سرعة الانتقالات</span>
+                <select id="ts-motion-speed"><option value="fast">سريع</option><option value="smooth" selected>متوازن</option><option value="cinematic">سينمائي</option></select>
+              </label>
+              <label class="ts-motion-switch" for="ts-motion-particles">
+                <input type="checkbox" id="ts-motion-particles" checked>
+                <span><b id="ts-motion-particles-label">المؤثرات المحيطة</b><small id="ts-motion-particles-desc">إظهار الجسيمات الخفيفة الخاصة بالثيم.</small></span>
+              </label>
+            </div>
+            <div class="ts-motion-actions"><button class="ghost" type="button" id="ts-motion-preview">▶ معاينة حركة الثيم</button><span id="ts-motion-status" role="status" aria-live="polite"></span></div>
+          </div>
+          <div class="themeStudio__actions">
+            <button class="primary" type="button" id="ts-apply">تطبيق الثيم</button>
+            <button class="ghost" type="button" id="ts-reset">إعادة تعيين</button>
+            <button class="ghost" type="button" id="ts-export">تصدير</button>
+            <button class="ghost" type="button" id="ts-import">استيراد</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="view-stats" hidden>
+      <div class="block__head"><div><h3 id="statsHeading">Progress charts</h3><span class="hint" id="statsHint">Track your week at a glance</span></div></div>
+      <section class="progressHero" aria-label="Weekly progress summary">
+        <div class="progressHero__main">
+          <span class="progressHero__eyebrow" id="progressHeroEyebrow">This week</span>
+          <strong id="progressHeroMinutes">0 min</strong>
+          <span id="progressHeroCopy">Study time completed</span>
+          <div class="progressHero__streak" id="progressHeroStreak"></div>
+        </div>
+        <div class="progressHero__compare" id="progressHeroCompare">—</div>
+        <div class="progressGoal">
+          <div class="progressGoal__head"><span id="progressGoalTitle">Weekly goal</span><b id="progressGoalPercent">0%</b></div>
+          <div class="progressGoal__track"><i id="progressGoalBar"></i><b class="progressGoal__ticks"></b><u class="progressGoal__mark" id="progressGoalMark"></u></div>
+          <div class="progressGoal__foot"><span id="progressGoalMeta">0 / 600 min</span><button class="ghost progressGoal__edit" type="button" id="progressGoalEdit">Set goal</button></div>
+          <div class="progressGoal__pace"><span id="progressGoalRemaining">Remaining: 600 min</span><span id="progressGoalPace">Daily pace: 86 min</span></div>
+          <div class="progressGoal__status" id="progressGoalStatus"></div>
+        </div>
+      </section>
+
+      <section class="progressInsights" aria-label="Progress highlights">
+        <article class="progressInsight is-accent"><span class="progressInsight__eyebrow" id="progressInsightLabel">This week</span><strong id="progressInsightText">Keep going</strong><p id="progressInsightSub">Your study trend will appear here.</p></article>
+        <article class="progressInsight"><span class="progressInsight__eyebrow" id="progressBestDayLabel2">Best day</span><strong id="progressBestDayValue2">—</strong><p id="progressBestDaySub2">—</p></article>
+        <article class="progressInsight is-today"><span class="progressInsight__eyebrow" id="progressTodayLabel">Today</span><strong id="progressTodayValue">0 min</strong><div class="progressMini"><i id="progressTodayBar"></i></div><p id="progressTodaySub">—</p></article>
+        <article class="progressInsight"><span class="progressInsight__eyebrow" id="progressFocusDaysLabel">Study days</span><strong id="progressFocusDaysValue">0/7</strong><p id="progressFocusDaysSub">Active days this week</p></article>
+      </section>
+
+      <section class="progressWeekStrip" aria-label="Seven day study activity">
+        <div class="progressWeekStrip__head"><h4 id="progressWeekStripTitle">Last 7 days</h4><span id="progressWeekStripHint">Daily study time</span><button class="ghost progressGoal__edit" type="button" id="progressCopyBtn">نسخ الملخص</button></div>
+        <div class="progressWeekStrip__days" id="progressWeekStripDays"></div>
+        <button class="kk-manga-secret-stain" id="kkMangaSecretStain" type="button" aria-label="صفحة حبر مخفية" title="..." hidden><span aria-hidden="true">墨</span></button>
+        <span class="kk-manga-secret-whisper" id="kkMangaSecretWhisper" aria-live="polite" hidden></span>
+      </section>
+
+      <div class="metricRow">
+        <div class="metric"><b id="statMinutes">0</b><span id="statMinutesLabel">Study minutes this week</span></div>
+        <div class="metric"><b id="statSessions">0</b><span id="statSessionsLabel">Completed sessions</span></div>
+        <div class="metric"><b id="statHwRate">0%</b><span id="statHwRateLabel">Homework completion</span></div>
+        <div class="metric"><b id="statActiveDays">0/7</b><span id="statActiveDaysLabel">Study days</span></div>
+      </div>
+      <div class="statsGrid">
+        <article class="statCard wide">
+          <h4 id="progressSummaryTitle">Weekly consistency</h4>
+          <div class="progressSummary">
+            <div class="progressRing" id="progressRing"><div class="progressRing__inner"><b id="progressRingValue">0%</b><span id="progressRingLabel">active days</span></div></div>
+            <div class="progressDetails">
+              <div class="progressLine"><span id="avgDayLabel">Average per day</span><b id="statAvgDay">0 min</b></div>
+              <div class="progressLine"><span id="bestDayLabel">Best day</span><b id="statBestDay">—</b></div>
+              <div class="progressLine"><span id="streakLabel">Current streak</span><b id="statStreak">0 days</b></div>
+              <div class="progressLine"><span id="longestStreakLabel">Longest streak</span><b id="statLongestStreak">0 days</b></div>
+              <div class="progressLine"><span id="cyclesLabel">دورات مكتملة</span><b id="statCycles">0</b></div>
+            </div>
+          </div>
+        </article>
+        <article class="statCard wide"><h4 id="studyChartTitle">Study time through the week</h4><div class="statSub" id="studyChartSub">Completed focus sessions</div><div class="chartKey"><i></i><span id="chartKeyText"></span></div><canvas class="chartCanvas" id="studyChart" aria-label="Weekly study time chart"></canvas></article>
+        <article class="statCard"><h4 id="hwChartTitle">Homework progress</h4><div class="donutWrap"><div class="donut" id="hwDonut"><div class="donutLabel" id="hwDonutLabel">0%<small>completed</small></div></div><div class="legend"><span id="doneLegend">Completed</span><span id="openLegend">Remaining</span></div></div></article>
+        <article class="statCard"><h4 id="subjectChartTitle">Workload by subject</h4><div class="statSub" id="subjectChartSub">Open homework and weekly lessons</div><div class="subjectBars" id="subjectBars"></div></article>
+        <article class="statCard wide"><h4 id="subjectStudyTitle">Study time by subject</h4><div class="statSub" id="subjectStudySub">See where your study time is going this week.</div><div class="subjectStudyGrid" id="subjectStudyGrid"></div></article>
+      </div>
+
+      <section class="kk-manga-library" id="kkMangaLibrary" aria-labelledby="kkMangaLibraryTitle">
+        <div class="kk-manga-library__mast">
+          <div>
+            <span class="kk-manga-kicker">第零話 · الفصل المفقود</span>
+            <h3 id="kkMangaLibraryTitle">مكتبة الشخصيات</h3>
+            <p>أربع صفحات جانبية من عوالم مختلفة، مرسومة بروح الحبر والورق.</p>
+          </div>
+          <div class="kk-manga-library__seal" aria-hidden="true"><span>漫</span><small>فهرس ٠٠</small></div>
+        </div>
+        <div class="kk-manga-character-grid">
+          <button class="kk-manga-character" type="button" data-manga-character="naruto" aria-pressed="false">
+            <span class="kk-manga-character__page">01</span>
+            <span class="kk-manga-portrait kk-manga-portrait--leaf" aria-label="Naruto Uzumaki"><img class="kk-manga-character__official-image" src="https://www.tv-tokyo.co.jp/anime/naruto/sp/images/chara/chara_01_1.png" alt="Naruto Uzumaki" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="kk-manga-portrait__source-tag" aria-hidden="true">OFFICIAL ART</span></span>
+            <span class="kk-manga-character__meta"><small>NARUTO · الأرشيف ٠١</small><strong>Naruto Uzumaki</strong><em>نينجا الإرادة</em></span>
+            <span class="kk-manga-character__corner" aria-hidden="true">↗</span>
+          </button>
+          <button class="kk-manga-character" type="button" data-manga-character="yuji" aria-pressed="false">
+            <span class="kk-manga-character__page">02</span>
+            <span class="kk-manga-portrait kk-manga-portrait--shadow" aria-label="Yuji Itadori"><img class="kk-manga-character__official-image" src="https://jujutsukaisen.jp/images/chara_detail1.png" alt="Yuji Itadori" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="kk-manga-portrait__source-tag" aria-hidden="true">OFFICIAL ART</span></span>
+            <span class="kk-manga-character__meta"><small>JUJUTSU KAISEN · الأرشيف ٠٢</small><strong>Yuji Itadori</strong><em>قلب شجاع في عالم اللعنات</em></span>
+            <span class="kk-manga-character__corner" aria-hidden="true">↗</span>
+          </button>
+          <button class="kk-manga-character" type="button" data-manga-character="gojo" aria-pressed="false">
+            <span class="kk-manga-character__page">03</span>
+            <span class="kk-manga-portrait kk-manga-portrait--moon" aria-label="Satoru Gojo"><img class="kk-manga-character__official-image" src="https://jujutsukaisen.jp/images/chara_detail4.png" alt="Satoru Gojo" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="kk-manga-portrait__source-tag" aria-hidden="true">OFFICIAL ART</span></span>
+            <span class="kk-manga-character__meta"><small>JUJUTSU KAISEN · الأرشيف ٠٣</small><strong>Satoru Gojo</strong><em>حضور هادئ وقوة استثنائية</em></span>
+            <span class="kk-manga-character__corner" aria-hidden="true">↗</span>
+          </button>
+          <button class="kk-manga-character" type="button" data-manga-character="tsukasa" aria-pressed="false">
+            <span class="kk-manga-character__page">04</span>
+            <span class="kk-manga-portrait kk-manga-portrait--moonlight" aria-label="Tsukasa Yuzaki"><img class="kk-manga-character__official-image" src="https://tonikawa.com/assets/images/sp/character/img_tsukasa-yuzaki.png" alt="Tsukasa Yuzaki" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="kk-manga-portrait__source-tag" aria-hidden="true">OFFICIAL ART</span></span>
+            <span class="kk-manga-character__meta"><small>TONIKAKU KAWAII · الأرشيف ٠٤</small><strong>Tsukasa Yuzaki</strong><em>بطلة Tonikaku Kawaii · ضوء القمر</em></span>
+            <span class="kk-manga-character__corner" aria-hidden="true">↗</span>
+          </button>
+        </div>
+        <div class="kk-manga-character-note" id="kkMangaCharacterNote" aria-live="polite"><span>余白</span><p>اختر صفحة لفتح ملاحظة الشخصية.</p></div>
+        <div class="kk-manga-library__foot"><span>حبر / ورق / ذاكرة</span><span>右から左へ · من اليمين إلى اليسار</span></div>
+      </section>
+    </section>
+    <section class="view" id="view-subjects" hidden>
+      <div class="block__head">
+        <h3>Subjects <span class="hint">Colors appear on your schedule and homework</span></h3>
+        <button class="add" type="button" data-add="subject">+ Subject</button>
+      </div>
+      <div id="subList"></div>
+    </section>
+
+    <section class="view" id="view-store" hidden>
+      <div class="storeHero">
+        <div>
+          <span class="storeEyebrow" id="storeEyebrow">متجر الكشكول</span>
+          <h2 id="storeHeading">ثيمات المتجر</h2>
+          <p id="storeHint">حوّل وقت مذاكرتك لشكل جديد للكشكول.</p>
+        </div>
+        <div class="studyWallet" aria-live="polite">
+          <span class="studyWallet__icon">⏱</span>
+          <div><small id="storeBalanceLabel">رصيد المذاكرة</small><strong id="storeBalance">0 س</strong></div>
+        </div>
+      </div>
+      <div class="storeNote" id="storeNote">كل 60 دقيقة مذاكرة مكتملة = ساعة واحدة قابلة للإنفاق. مشترياتك محفوظة داخل حسابك.</div>
+      <div class="storeGrid" id="storeGrid"></div>
+    </section>
+
+    <section class="view" id="view-settings" hidden>
+      <div class="block__head"><h3 id="settingsHeading">الإعدادات</h3><span class="hint" id="settingsHint">خصص الكشكول على طريقتك</span></div>
+      <div class="settingsGrid">
+        <div class="settingsSectionTitle" id="settingsAccountSection">الحساب</div>
+        <article class="settingCard"><h4 id="accountSettingsTitle">الحساب</h4><p id="accountSettingsDesc">كل حساب له بياناته المنفصلة على هذا الجهاز.</p><button class="primary" type="button" id="manageAccountsBtn">إدارة الحسابات</button></article>
+
+        <div class="settingsSectionTitle" id="settingsAppearanceSection">المظهر</div>
+        <article class="settingCard">
+          <h4 id="appearanceSettingsTitle">المظهر والواجهة</h4><p id="appearanceSettingsDesc">غيّر شكل الكشكول وحجم الكتابة وطريقة العرض.</p>
+          <div class="settingRow" id="themeModeSettingRow"><div><strong id="themeSettingLabel">المظهر</strong><small id="themeSettingDesc">تلقائي حسب الجهاز أو اختر وضعًا ثابتًا.</small></div><select id="themeSetting"><option value="system">تلقائي</option><option value="light">فاتح</option><option value="dark">داكن</option></select></div>
+          <div class="settingRow" id="searchVisibilityRow"><div><strong id="searchVisibilityLabel">إظهار البحث</strong><small id="searchVisibilityDesc">أظهر أو أخفِ زر البحث من الواجهة.</small></div><input type="checkbox" id="searchVisibilitySetting" checked></div>
+          <div class="settingRow"><div><strong id="fontSizeSettingLabel">حجم الخط</strong><small id="fontSizeSettingDesc">كبّر أو صغّر النص في التطبيق.</small></div><select id="fontSizeSetting"><option value="small">صغير</option><option value="normal">متوسط</option><option value="large">كبير</option><option value="xlarge">كبير جدًا</option></select></div>
+          <div class="settingRow"><div><strong id="compactSettingLabel">الوضع المدمج</strong><small id="compactSettingDesc">يقلل المسافات عشان يظهر محتوى أكثر.</small></div><input type="checkbox" id="compactSetting"></div>
+          <div class="settingRow"><div><strong id="motionSettingLabel">تقليل الحركة</strong><small id="motionSettingDesc">يوقف معظم الحركات والانتقالات.</small></div><input type="checkbox" id="reduceMotionSetting"></div>
+          <div class="settingRow" id="motionProfileSettingRow"><div><strong id="motionProfileLabel">أداء الأنيميشن</strong><small id="motionProfileDesc">تلقائي يوازن المؤثرات مع قدرة الجهاز، أو اختر الوضع بنفسك.</small></div><select id="motionProfileSetting"><option value="auto">تلقائي (موصى به)</option><option value="rich">مؤثرات كاملة</option><option value="performance">أداء متوازن</option><option value="ultra">أقصى أداء</option></select></div>
+          <div class="settingActions"><button class="ghost" type="button" id="settingsLangBtn">English</button></div>
+        </article>
+
+        <div class="settingsSectionTitle" id="settingsPersonalizationSection">التخصيص</div>
+        <article class="settingCard wide">
+          <h4 id="personalizationSettingsTitle">التخصيص</h4><p id="personalizationSettingsDesc">غيّر لون الكشكول وشكل البطاقات والأقسام الظاهرة حسب ذوقك.</p>
+          <div class="settingRow"><div><strong id="accentSettingLabel">اللون الأساسي</strong><small id="accentSettingDesc">اختار اللون الذي يظهر في الأزرار والعناصر المميزة.</small></div><select id="accentSetting"><option value="gold">ذهبي</option><option value="blue">أزرق</option><option value="green">أخضر</option><option value="purple">بنفسجي</option><option value="rose">وردي</option><option value="cyan">سماوي</option></select></div>
+          <div class="settingRow"><div><strong id="radiusSettingLabel">شكل البطاقات</strong><small id="radiusSettingDesc">غيّر درجة نعومة الحواف في التطبيق.</small></div><select id="radiusSetting"><option value="soft">ناعم</option><option value="rounded">دائري</option><option value="square">حاد</option></select></div>
+          <div class="settingRow"><div><strong id="densitySettingLabel">كثافة الواجهة</strong><small id="densitySettingDesc">تحكم في المسافات وحجم العناصر.</small></div><select id="densitySetting"><option value="comfortable">مريحة</option><option value="compact">مدمجة</option><option value="spacious">واسعة</option></select></div>
+          <div class="visibleSectionsHead" id="visibleSectionsHeading">الأقسام الظاهرة</div>
+          <div class="visibleSectionsGrid" id="visibleSectionsGrid"></div>
+        </article>
+
+        <div class="settingsSectionTitle" id="settingsStudySection">المذاكرة</div>
+        <article class="settingCard">
+          <h4 id="studySettingsTitle">تفضيلات المذاكرة</h4><p id="studySettingsDesc">حدد الصفحة التي تفتح أولًا وبعض سلوكيات التطبيق.</p>
+          <div class="settingRow"><div><strong id="defaultViewLabel">الصفحة الافتراضية</strong><small id="defaultViewDesc">الصفحة التي يفتح عليها الكشكول.</small></div><select id="defaultViewSetting"><option value="dashboard">لوحة التحكم</option><option value="today">النهاردة</option><option value="week">الأسبوع</option><option value="hw">الواجبات</option><option value="flashcards">البطاقات التعليمية</option><option value="pomo">المؤقّت</option><option value="studyplan">نظام المذاكرة</option><option value="stats">التقدم</option><option value="subjects">المواد</option><option value="settings">الإعدادات</option></select></div>
+          <div class="settingRow"><div><strong id="confirmDeleteLabel">تأكيد قبل المسح</strong><small id="confirmDeleteDesc">يعرض رسالة تأكيد قبل حذف العناصر.</small></div><input type="checkbox" id="confirmDeleteSetting" checked></div>
+        </article>
+        <article class="settingCard wide">
+          <h4 id="focusSettingsTitle">وضع التركيز</h4><p id="focusSettingsDesc">اقفل التنقل داخل التطبيق وركّز على المؤقّت والخطوة الحالية بدون تشتيت.</p>
+          <label class="switchLine"><span id="focusAutoLabel">الدخول لوضع التركيز تلقائيًا عند بدء جلسة مذاكرة</span><input type="checkbox" id="focusAutoSetting"></label>
+          <label class="switchLine"><span id="focusStepsLabel">إظهار خطوات نظام المذاكرة أثناء التركيز</span><input type="checkbox" id="focusStepsSetting" checked></label>
+          <div class="settingActions"><button class="primary" type="button" id="openFocusFromSettings">دخول وضع التركيز</button></div>
+        </article>
+
+        <div class="settingsSectionTitle" id="settingsNotificationsSection">الإشعارات</div>
+        <article class="settingCard wide" id="notificationSettingsCard">
+          <h4 id="notificationsTitle">إشعارات الكشكول</h4>
+          <p id="notificationsDesc">استقبل تنبيهًا عند انتهاء المؤقّت، وقبل مواعيد الدروس، وعند اقتراب تسليم الواجبات.</p>
+          <label class="switchLine"><span id="notificationsToggleLabel">تشغيل إشعارات النظام</span><input type="checkbox" id="notificationsToggle"></label>
+          <div class="settingActions">
+            <button class="ghost" type="button" id="testNotificationBtn">إرسال إشعار تجريبي</button>
+          </div>
+          <p class="notificationStatus" id="notificationsStatus" role="status" aria-live="polite">الإشعارات متوقفة حاليًا.</p>
+        </article>
+
+        <div class="settingsSectionTitle" id="settingsTimerSection">المؤقّت</div>
+        <article class="settingCard">
+          <h4 id="timerSettingsCardTitle">إعدادات المؤقّت</h4><p id="timerSettingsCardDesc">اضبط مدة الجلسة والاستراحات والجولات من هنا.</p>
+          <div class="settingRow"><div><strong id="settingWorkLabel">المذاكرة</strong><small id="settingWorkDesc">مدة جلسة التركيز بالدقائق.</small></div><input type="number" id="settingsWork" min="1" max="180"></div>
+          <div class="settingRow"><div><strong id="settingBreakLabel">الاستراحة القصيرة</strong><small id="settingBreakDesc">مدة الاستراحة بين الجولات.</small></div><input type="number" id="settingsBreak" min="1" max="60"></div>
+          <div class="settingRow"><div><strong id="settingLongLabel">الاستراحة الطويلة</strong><small id="settingLongDesc">مدة الاستراحة الطويلة.</small></div><input type="number" id="settingsLong" min="1" max="120"></div>
+          <div class="settingRow"><div><strong id="settingRoundsLabel">عدد الجولات</strong><small id="settingRoundsDesc">بعدها تبدأ الاستراحة الطويلة.</small></div><input type="number" id="settingsRounds" min="1" max="12"></div>
+          <label class="switchLine"><span id="settingsAutoLabel">تشغيل المرحلة التالية تلقائيًا</span><input type="checkbox" id="settingsAuto"></label>
+          <div class="settingActions"><button class="primary" type="button" id="saveTimerFromSettings">حفظ إعدادات المؤقّت</button><button class="ghost" type="button" id="openTimerSettings">فتح صفحة المؤقّت</button></div>
+        </article>
+
+        <article class="settingCard" id="soundCard">
+          <h4 id="soundSettingsTitle">صوت المؤقّت</h4>
+          <p id="soundSettingsDesc">اختار صوت التنبيه ومستواه لما تخلص مرحلة المذاكرة أو الاستراحة.</p>
+          <label class="switchLine"><span id="soundToggleLabel">تشغيل الصوت</span><input type="checkbox" id="soundEnabled" checked></label>
+          <div class="soundControls" id="soundControls">
+            <div class="volumeRow"><label for="soundVolume" id="soundVolumeLabel">مستوى الصوت</label><input type="range" id="soundVolume" min="0" max="100" step="5" value="70"><output id="soundVolumeValue" for="soundVolume">70%</output></div>
+            <fieldset class="soundList" role="radiogroup" aria-labelledby="soundChoiceLabel"><legend id="soundChoiceLabel">صوت التنبيه</legend><div id="soundOptions"></div></fieldset>
+            <button class="ghost" type="button" id="testSoundBtn">تجربة الصوت</button>
+          </div>
+        </article>
+
+        <div class="settingsSectionTitle" id="settingsDataSection">البيانات</div>
+        <article class="settingCard wide">
+          <h4 id="dataSettingsTitle">البيانات والخصوصية</h4><p id="dataSettingsDesc">بياناتك تُحفظ محليًا على هذا الجهاز في وضع التخزين المحلي.</p>
+          <div class="settingActions"><button class="ghost" type="button" id="exportDataBtn">تصدير البيانات</button><button class="ghost" type="button" id="importDataBtn">استيراد البيانات</button><button class="danger" type="button" id="resetDataBtn">مسح بيانات الحساب</button></div>
+          <input type="file" id="importDataFile" accept="application/json,.json" hidden>
+          <div class="dataStatus" id="dataStatus">—</div>
+        </article>
+        <article class="settingCard wide" id="kk-recovery-card">
+          <h4 id="kk-recovery-title">النسخ الاحتياطي والاستعادة</h4>
+          <p id="kk-recovery-desc">يحتفظ التطبيق بنسخ محلية دورية من بيانات الحساب حتى يمكن الرجوع لنسخة سابقة عند الحاجة.</p>
+          <div class="kk-recovery-status" id="kk-recovery-status" role="status" aria-live="polite">جارٍ فحص النسخ الاحتياطية…</div>
+          <div class="settingActions"><button class="ghost" type="button" id="kk-backup-now">إنشاء نسخة الآن</button><button class="primary" type="button" id="kk-restore-backup">استعادة آخر نسخة تلقائية</button><button class="ghost" type="button" id="kk-download-full-backup">تنزيل نسخة كاملة</button><button class="ghost" type="button" id="kk-restore-deleted">استعادة آخر عنصر محذوف</button></div>
+          <p class="kk-recovery-note" id="kk-recovery-note">النسخ التلقائية تبقى على الجهاز نفسه؛ للتنقل بين الأجهزة استخدم تنزيل النسخة الكاملة ثم استيرادها على الجهاز الآخر.</p>
+        </article>
+        <article class="settingCard wide" id="kk-diagnostics-card">
+          <h4 id="kk-diagnostics-title">فحص سلاسة الموقع</h4>
+          <p id="kk-diagnostics-desc">اختبار قصير لزمن إطارات الرسم في التبويب الحالي. لا يرسل بيانات للخارج ولا يختبر أداء الجهاز كله.</p>
+          <div class="kk-diagnostics-row"><span id="kk-diagnostics-device">معلومات الجهاز: —</span><button class="ghost" type="button" id="kk-run-frame-test">اختبار السلاسة · 3 ثوانٍ</button></div>
+          <div class="kk-recovery-status" id="kk-diagnostics-result" role="status" aria-live="polite">لم يبدأ الاختبار بعد.</div>
+        </article>
+
+        <div class="settingsSectionTitle" id="settingsHelpSection">مساعدة</div>
+        <article class="settingCard wide">
+          <h4 id="helpSettingsTitle">اختصارات وتلميحات</h4><p id="helpSettingsDesc">استخدم الكيبورد بسرعة: Space لتشغيل/إيقاف المؤقّت، وEscape لإغلاق النوافذ.</p>
+        </article>
+      </div>
+    </section>
+    <section class="view" id="view-learning" hidden aria-label="Learning OS"></section>
+  </main>
+</div>
+
+
+<div id="focusOverlay" class="focusOverlay" hidden aria-modal="true" role="dialog" aria-labelledby="focusBrand">
+  <div class="focusShell">
+    <div class="focusTop">
+      <div class="focusBrand" id="focusBrand">Focus Mode</div>
+      <div class="focusTopActions"><button type="button" id="focusExit">Exit Focus</button></div>
+    </div>
+    <div class="focusMain">
+      <section class="focusTimerCard">
+        <div class="focusPhase" id="focusPhase">Study</div>
+        <div class="focusSubject" id="focusSubject">—</div>
+        <input class="focusGoal" id="focusGoal" type="text" maxlength="80" autocomplete="off">
+        <div class="focusStepNow" id="focusStepNow" hidden><div class="focusStepNow__meta"><span id="focusStepNowLabel"></span><b id="focusStepNowText"></b></div><button type="button" class="ghost" id="focusStepDone"></button></div>
+        <div class="focusClock" id="focusClock" aria-live="polite">25:00</div>
+        <div class="focusRound" id="focusRound">Round 1 of 4</div>
+        <div class="focusCounted" id="focusCounted"></div>
+        <div class="focusProgress" aria-hidden="true"><i id="focusProgressBar"></i></div>
+        <div class="focusControls">
+          <button class="primary" type="button" id="focusToggle">Start</button>
+          <button class="ghost" type="button" id="focusSkip">Skip</button>
+          <button class="ghost" type="button" id="focusExtend" title="+5">+5</button>
+          <button class="ghost" type="button" id="focusReset">Reset</button>
+        </div>
+        <div class="focusStatus" id="focusStatus">Ready when you are</div>
+      </section>
+      <aside class="focusSystemCard" id="focusSystemCard">
+        <div class="focusSystemHead"><div class="focusSystemHead__titles" id="focusSystemTitle"><span class="langPair__ar" dir="rtl">نظام المذاكرة</span><span class="langPair__en" dir="ltr">Study system</span></div><span id="focusSystemProgress">0/0</span></div>
+        <select class="focusSystemSelect" id="focusSystemSelect" aria-label="نظام المذاكرة"></select>
+        <div class="focusStepList" id="focusStepList"></div>
+        <div class="focusStageNav"><button type="button" id="focusPrevStep">السابق</button><button type="button" id="focusNextStep">التالي</button></div>
+        <span class="focusStageHelp" id="focusStageHelp">اختار أي مرحلة للتنقّل، أو استخدم السابق / التالي</span>
+      </aside>
+    </div>
+    <div class="focusLayer" id="focusSummary" hidden role="dialog" aria-live="polite"><div class="focusLayer__card">
+      <h3 id="focusSumTitle"></h3><div class="focusSum__stats" id="focusSumStats"></div>
+      <div class="focusSum__goal" id="focusSumGoalBox" hidden><span id="focusSumGoalText"></span><div class="focusSum__btns"><button type="button" class="primary" id="focusSumHit"></button><button type="button" class="ghost" id="focusSumMiss"></button></div></div>
+      <div class="focusSum__goal" id="focusSumStepBox" hidden><span id="focusSumStepText"></span><div class="focusSum__btns"><button type="button" class="primary" id="focusSumStepYes"></button><button type="button" class="ghost" id="focusSumStepNo"></button></div></div>
+      <button type="button" class="primary" id="focusSumClose"></button></div></div>
+    <div class="focusLayer" id="focusExitConfirm" hidden role="alertdialog"><div class="focusLayer__card">
+      <h3 id="focusExitTitle"></h3><p id="focusExitText"></p>
+      <div class="focusSum__btns"><button type="button" class="primary" id="focusExitNo"></button><button type="button" class="ghost" id="focusExitYes"></button></div></div></div>
+    <div class="focusFooter" id="focusFooter">Ctrl + Shift + F · Esc to exit</div>
+  </div>
+</div>
+
+<dialog id="dlgAccounts" class="cloudAccountDialog">
+  <div class="dlg__head"><h3 id="accountsTitle">الحساب والمزامنة</h3><button class="dlgClose" type="button" data-close aria-label="قفل">×</button></div>
+  <div class="dlg__body cloudAccountBody">
+    <div id="cloudAccountBanner" class="cloudAccountBanner" role="status" aria-live="polite">الحساب المحلي يعمل على هذا الجهاز.</div>
+    <div id="cloudAuthFields">
+      <div><label for="cloudUsername" id="cloudUsernameLabel">اسم المستخدم</label><input id="cloudUsername" type="text" maxlength="24" autocomplete="username" autocapitalize="none" spellcheck="false" placeholder="من 3 إلى 24 حرفًا أو رقمًا" dir="ltr"></div>
+      <div><label for="cloudPassword" id="cloudPasswordLabel">كلمة المرور</label><input id="cloudPassword" type="password" minlength="6" maxlength="128" autocomplete="current-password" placeholder="6 أحرف على الأقل" dir="ltr"></div>
+      <div class="cloudAuthButtons"><button type="button" class="primary" id="cloudLoginBtn">تسجيل الدخول</button><button type="button" class="ghost" id="cloudRegisterBtn">إنشاء حساب</button></div>
+      <p class="cloudSmallNotice" id="cloudPasswordNotice">استخدم كلمة مرور قوية واحتفظ بها؛ حساب اسم المستخدم فقط لا يوفّر استعادة كلمة المرور بالبريد.</p>
+    </div>
+    <div id="cloudSignedInPanel" hidden>
+      <div class="cloudSignedInLine"><span id="cloudSignedInLabel">متصل باسم</span><strong id="cloudSignedInName"></strong></div>
+      <div class="cloudAuthButtons"><button type="button" class="primary" id="cloudSyncNowBtn">مزامنة الآن</button><button type="button" class="ghost" id="cloudLogoutBtn">تسجيل الخروج</button></div>
+    </div>
+    <details class="cloudConfigDetails" id="cloudConfigDetails" hidden>
+      <summary id="cloudConfigSummary">إعداد المزامنة السحابية (أول مرة فقط)</summary>
+      <p id="cloudConfigIntro">يلزم ربط الكشكول بمشروع Firebase خاص بك. إعداد المشروع مرة واحدة، ثم استخدم نفس إعداداته على كل جهاز.</p>
+      <label for="firebaseConfigInput" id="firebaseConfigLabel">إعدادات Firebase Web App بصيغة JSON</label>
+      <textarea id="firebaseConfigInput" rows="5" spellcheck="false" dir="ltr" placeholder='{"apiKey":"…","authDomain":"…","projectId":"…","appId":"…"}'></textarea>
+      <button type="button" class="primary cloudConfigSave" id="saveFirebaseConfigBtn">حفظ الإعدادات والاتصال</button>
+      <div class="cloudSetupSteps" id="cloudSetupSteps">
+        <b>خطوات تجهيز الخدمة</b>
+        <ol><li>أنشئ مشروعًا في Firebase وأضف تطبيق Web، ثم انسخ كائن الإعدادات.</li><li>من Authentication فعّل مزوّد Email/Password.</li><li>أنشئ Firestore Database، ثم ضع القواعد الموجودة بالأسفل.</li><li>انسخ إعدادات Web نفسها إلى هذه الخانة على كل جهاز تستخدمه.</li></ol>
+      </div>
+      <details class="cloudRulesDetails"><summary id="cloudRulesSummary">قواعد Firestore الآمنة المطلوبة</summary><pre id="cloudRulesText">rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /kashkoolUsers/{userId}/records/{recordId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+  }
+}</pre><button type="button" class="ghost" id="copyCloudRulesBtn">نسخ القواعد</button></details>
+      <p class="cloudSmallNotice" id="cloudDataNotice">بيانات المذاكرة والملاحظات والبطاقات والإعدادات ستُحفظ في قاعدة البيانات السحابية لهذا المشروع. كلمة المرور لا تُحفظ في تخزين الكشكول المحلي.</p>
+    </details>
+    <div id="accountList" hidden></div>
+  </div>
+  <div class="dlg__foot"><button class="ghost" type="button" data-close>قفل</button></div>
+</dialog>
+
+<dialog id="dlgGoal"><form method="dialog" id="formGoal"><div class="dlg__head"><h3 id="goalDialogTitle">Weekly goal</h3><button class="dlgClose" type="button" data-close aria-label="Close">×</button></div><div class="dlg__body"><div class="goalPresetGrid"><button type="button" class="goalPreset" data-goal="300"><b>5h</b><span id="goal5h">5 hours</span></button><button type="button" class="goalPreset" data-goal="600"><b>10h</b><span id="goal10h">10 hours</span></button><button type="button" class="goalPreset" data-goal="900"><b>15h</b><span id="goal15h">15 hours</span></button></div><label for="goalMinutesInput" id="goalMinutesLabel">Goal in minutes</label><input type="number" id="goalMinutesInput" min="30" max="6000" step="15" value="600"><div class="goalDialogHint" id="goalDialogHint">Choose a preset or enter your own target.</div></div><div class="dlg__foot"><button class="primary" type="button" id="goalSaveBtn">Save goal</button><button class="ghost" type="button" data-close>Cancel</button></div></form></dialog>
+
+<!-- ============ dialogs ============ -->
+<dialog id="dlgExam">
+  <form method="dialog" id="formExam">
+    <div class="dlg__head"><h3 id="examTitle">New exam</h3><button class="dlgClose" type="button" data-close aria-label="Close">×</button></div>
+    <div class="dlg__body">
+      <div>
+        <label for="x_title">Exam name</label>
+        <input type="text" id="x_title" placeholder="e.g. Midterm exam — Math">
+      </div>
+      <div>
+        <label for="x_subject">Subject</label>
+        <select id="x_subject"><option value="">— No subject —</option></select>
+      </div>
+      <div class="pair">
+        <div><label for="x_date">Date</label><input type="date" id="x_date"></div>
+        <div><label for="x_time">Time (optional)</label><input type="time" id="x_time"></div>
+      </div>
+      <div>
+        <label for="x_place">Location</label>
+        <input type="text" id="x_place" placeholder="Room, committee…">
+      </div>
+      <div>
+        <label for="x_note">Note</label>
+        <textarea id="x_note" placeholder="Syllabus, things to bring…"></textarea>
+      </div>
+    </div>
+    <div class="dlg__foot">
+      <button class="primary" type="button" id="x_save">Save</button>
+      <button class="ghost" type="button" data-close>Cancel</button>
+      <span class="spacer"></span>
+      <button class="danger" type="button" id="x_del" hidden>Delete</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="dlgSearch">
+  <div class="dlg__head"><h3>Search</h3><button class="dlgClose" type="button" data-close aria-label="Close">×</button></div>
+  <div class="dlg__body">
+    <div class="searchbar">
+      <input type="search" id="sq" placeholder="Search lessons, homework, exams, resources, notes, and subjects…" autocomplete="off">
+      <button class="iconbtn searchClear" type="button" id="searchClear" data-search-clear hidden aria-label="Clear search">×</button>
+    </div>
+    <div class="searchMeta" id="searchMeta" aria-live="polite"></div>
+    <div id="searchResults"></div>
+  </div>
+  <div class="dlg__foot"><button class="ghost" type="button" id="disableSearchBtn">Remove search from site</button><button class="ghost" type="button" data-close>Close</button></div>
+</dialog>
+
+<dialog id="dlgEntry">
+  <form method="dialog" id="formEntry">
+    <div class="dlg__head"><h3 id="entryTitle">New lesson or event</h3><button class="dlgClose" type="button" data-close aria-label="Close">×</button></div>
+    <div class="dlg__body">
+      <div>
+        <label for="e_title">Title</label>
+        <input type="text" id="e_title" placeholder="e.g. Math class, tutoring, doctor appointment">
+      </div>
+      <div>
+        <label for="e_subject">Subject</label>
+        <select id="e_subject"><option value="">— No subject —</option></select>
+      </div>
+      <div>
+        <label id="e_dayLbl">Days <span class="hint-inline" id="e_dayHint">You can choose more than one day</span></label>
+        <div class="daypick" id="e_days" role="group" aria-labelledby="e_dayLbl"></div>
+      </div>
+      <div>
+        <label class="checkline"><input type="checkbox" id="e_notime"> No specific time (all day)</label>
+      </div>
+      <div class="pair" id="e_timePair">
+        <div><label for="e_from">From</label><input type="time" id="e_from" value="08:00"></div>
+        <div><label for="e_to">To</label><input type="time" id="e_to" value="09:00"></div>
+      </div>
+      <div>
+        <label for="e_place">Location</label>
+        <input type="text" id="e_place" placeholder="Classroom, center, online…">
+      </div>
+      <div>
+        <label for="e_link">Resource link</label>
+        <input type="url" id="e_link" dir="ltr" placeholder="https://youtube.com/watch?v=…">
+        <select id="e_linkpick" class="mini" aria-label="Choose a saved resource"><option value="">Or choose a saved resource</option></select>
+      </div>
+      <div>
+        <label for="e_note">Note</label>
+        <textarea id="e_note" placeholder="Anything to remember"></textarea>
+      </div>
+    </div>
+    <div class="dlg__foot">
+      <button class="primary" type="button" id="e_save">Save</button>
+      <button class="ghost" type="button" data-close>Cancel</button>
+      <span class="spacer"></span>
+      <button class="danger" type="button" id="e_del" hidden>Delete</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="dlgHw">
+  <form method="dialog" id="formHw">
+    <div class="dlg__head"><h3 id="hwTitle">New homework</h3><button class="dlgClose" type="button" data-close aria-label="Close">×</button></div>
+    <div class="dlg__body">
+      <div>
+        <label for="h_title">Homework</label>
+        <input type="text" id="h_title" placeholder="e.g. Solve exercises on page 42">
+      </div>
+      <div>
+        <label for="h_subject">Subject</label>
+        <select id="h_subject"><option value="">— No subject —</option></select>
+      </div>
+      <div>
+        <label for="h_due">Due</label>
+        <input type="date" id="h_due">
+      </div>
+      <div>
+        <label for="h_link">Resource link</label>
+        <input type="url" id="h_link" dir="ltr" placeholder="https://…">
+      </div>
+      <div>
+        <label for="h_note">Details</label>
+        <textarea id="h_note" placeholder="What exactly is required"></textarea>
+      </div>
+    </div>
+    <div class="dlg__foot">
+      <button class="primary" type="button" id="h_save">Save</button>
+      <button class="ghost" type="button" data-close>Cancel</button>
+      <span class="spacer"></span>
+      <button class="danger" type="button" id="h_del" hidden>Delete</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="dlgLink">
+  <form method="dialog" id="formLink">
+    <div class="dlg__head"><h3 id="linkTitle">New resource</h3><button class="dlgClose" type="button" data-close aria-label="Close">×</button></div>
+    <div class="dlg__body">
+      <div>
+        <label for="l_title">Title</label>
+        <input type="text" id="l_title" placeholder="e.g. Chapter two explanation — channel name">
+      </div>
+      <div>
+        <label for="l_url">URL</label>
+        <input type="url" id="l_url" dir="ltr" placeholder="https://…">
+      </div>
+      <div>
+        <label for="l_subject">Subject</label>
+        <select id="l_subject"><option value="">— No subject —</option></select>
+      </div>
+      <div>
+        <label for="l_note">Note</label>
+        <textarea id="l_note" placeholder="Episode number, where you stopped…"></textarea>
+      </div>
+    </div>
+    <div class="dlg__foot">
+      <button class="primary" type="button" id="l_save">Save</button>
+      <button class="ghost" type="button" data-close>Cancel</button>
+      <span class="spacer"></span>
+      <button class="danger" type="button" id="l_del" hidden>Delete</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="dlgNote">
+  <form method="dialog" id="formNote">
+    <div class="dlg__head"><h3 id="noteTitle">New note</h3><button class="dlgClose" type="button" data-close aria-label="Close">×</button></div>
+    <div class="dlg__body">
+      <div>
+        <label for="n_title">Title</label>
+        <input type="text" id="n_title" placeholder="e.g. Lesson summary, project ideas…">
+      </div>
+      <div>
+        <label for="n_subject">Subject</label>
+        <select id="n_subject"><option value="">— No subject —</option></select>
+      </div>
+      <div>
+        <label for="n_body">Note</label>
+        <textarea id="n_body" placeholder="Write what you want to remember…" style="min-height:140px"></textarea>
+      </div>
+    </div>
+    <div class="dlg__foot">
+      <button class="primary" type="button" id="n_save">Save</button>
+      <button class="ghost" type="button" data-close>Cancel</button>
+      <span class="spacer"></span>
+      <button class="danger" type="button" id="n_del" hidden>Delete</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="dlgSub">
+  <form method="dialog" id="formSub">
+    <div class="dlg__head"><h3 id="subTitle">New subject</h3><button class="dlgClose" type="button" data-close aria-label="Close">×</button></div>
+    <div class="dlg__body">
+      <div>
+        <label for="s_name">Subject name</label>
+        <input type="text" id="s_name" placeholder="Arabic, Math, Physics…">
+      </div>
+      <div>
+        <label>Color</label>
+        <div class="swatches" id="s_colors"></div>
+      </div>
+      <div>
+        <label for="s_teacher">Teacher</label>
+        <input type="text" id="s_teacher" placeholder="Teacher name (optional)">
+      </div>
+    </div>
+    <div class="dlg__foot">
+      <button class="primary" type="button" id="s_save">Save</button>
+      <button class="ghost" type="button" data-close>Cancel</button>
+      <span class="spacer"></span>
+      <button class="danger" type="button" id="s_del" hidden>Delete</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="dlgStudySystem">
+  <form method="dialog" id="formStudySystem">
+    <div class="dlg__head">
+      <h3 id="studySystemDialogTitle">إضافة نظام مذاكرة</h3>
+      <button class="dlgClose" type="button" data-close aria-label="Close">×</button>
+    </div>
+    <div class="dlg__body">
+      <div class="pair">
+        <div>
+          <label for="ss_title_ar" id="ss_title_ar_label">اسم النظام بالعربية</label>
+          <input type="text" id="ss_title_ar" dir="rtl" lang="ar" placeholder="مثلاً: الاسترجاع النشط">
+        </div>
+        <div>
+          <label for="ss_title_en" id="ss_title_en_label">System name in English</label>
+          <input type="text" id="ss_title_en" dir="ltr" lang="en" placeholder="e.g. Active Recall">
+        </div>
+      </div>
+      <div class="pair">
+        <div>
+          <label for="ss_desc_ar" id="ss_desc_ar_label">الوصف بالعربية</label>
+          <input type="text" id="ss_desc_ar" dir="rtl" lang="ar" placeholder="وصف مختصر للنظام">
+        </div>
+        <div>
+          <label for="ss_desc_en" id="ss_desc_en_label">Description in English</label>
+          <input type="text" id="ss_desc_en" dir="ltr" lang="en" placeholder="Short description">
+        </div>
+      </div>
+      <div class="block__head" style="padding-top:6px">
+        <h3 id="studyStepsEditorHeading">خطوات النظام</h3>
+        <button class="add" type="button" id="studyAddStep">+ إضافة خطوة</button>
+      </div>
+      <div class="studyStepEditor" id="studyStepEditor"></div>
+    </div>
+    <div class="dlg__foot">
+      <button class="primary" type="button" id="ss_save">حفظ النظام</button>
+      <button class="ghost" type="button" id="ss_cancel" data-close>إلغاء</button>
+    </div>
+  </form>
+</dialog>
+
+<script src="./assets/js/01-app-core.js"></script>
+<script src="./assets/js/02-motion-v2-js.js"></script>
+<script src="./assets/js/03-motion-v3-js.js"></script>
+<script src="./assets/js/04-motion-v4-js.js"></script>
+<script src="./assets/js/05-goal-v5-js.js"></script>
+
+<script src="./assets/js/06-visual-v6-js.js"></script>
+
+<script src="./assets/js/07-visual-v7-js.js"></script>
+
+
+
+
+
+<script src="./assets/js/08-visual-v8-js.js"></script>
+
+
+<script src="./assets/js/09-visual-v9-js.js"></script>
+
+<!-- Kashkool v25: command center + quick actions -->
+<div class="kkCommandOverlay" id="kkCommandOverlay" hidden aria-hidden="true">
+  <section class="kkCommand" role="dialog" aria-modal="true" aria-labelledby="kkCommandTitle">
+    <div class="kkCommand__head">
+      <div>
+        <span class="kkEyebrow" id="kkCommandEyebrow">SMART CONTROL</span>
+        <h2 id="kkCommandTitle">Command Center</h2>
+        <p id="kkCommandHint">Jump anywhere or add something without hunting through menus.</p>
+      </div>
+      <button class="iconbtn" type="button" id="kkCommandClose" aria-label="Close">×</button>
+    </div>
+    <div class="kkCommand__searchWrap">
+      <span aria-hidden="true">⌕</span>
+      <input id="kkCommandSearch" type="search" autocomplete="off" spellcheck="false" placeholder="Search actions…">
+      <kbd>Ctrl</kbd><kbd>K</kbd>
+    </div>
+    <div class="kkCommand__grid" id="kkCommandGrid"></div>
+    <div class="kkCommand__foot">
+      <span id="kkCommandTip">↑ ↓ to move · Enter to open · Esc to close</span>
+      <span class="kkCommand__status" id="kkCommandStatus"></span>
+    </div>
+  </section>
+</div>
+
+<div class="kkQuickDock" id="kkQuickDock" aria-label="Quick actions">
+  <button type="button" class="kkQuickDock__main" id="kkQuickMain" aria-label="Quick actions" aria-expanded="false">＋</button>
+  <div class="kkQuickDock__items" id="kkQuickItems">
+    <button type="button" class="kkQuick" data-kk-action="timer"><span>◷</span><b data-ar="المؤقّت" data-en="Timer">المؤقّت</b></button>
+    <button type="button" class="kkQuick" data-kk-action="entry"><span>＋</span><b data-ar="حصة" data-en="Lesson">حصة</b></button>
+    <button type="button" class="kkQuick" data-kk-action="hw"><span>✓</span><b data-ar="واجب" data-en="Homework">واجب</b></button>
+    <button type="button" class="kkQuick" data-kk-action="note"><span>✎</span><b data-ar="نوتة" data-en="Note">نوتة</b></button>
+  </div>
+</div>
+
+
+
+<script src="./assets/js/10-v25-js.js"></script>
+
+
+<!-- Kashkool v27 — 5 brains UX upgrade: context, navigation, accessibility, resilience -->
+<div class="kkPulse" id="kkV27Pulse" hidden aria-live="polite">
+  <div class="kkPulse__icon" id="kkV27PulseIcon" aria-hidden="true">✦</div>
+  <div class="kkPulse__copy">
+    <strong id="kkV27PulseTitle"></strong>
+    <span id="kkV27PulseText"></span>
+  </div>
+  <div class="kkPulse__actions">
+    <button class="kkPulse__action" id="kkV27PulsePrimary" type="button"></button>
+    <button class="kkPulse__dismiss" id="kkV27PulseDismiss" type="button" aria-label="Dismiss">×</button>
+  </div>
+</div>
+
+
+
+<script src="./assets/js/11-v27-js.js"></script>
+
+<!-- Theme Studio Script -->
+<script src="./assets/js/12-theme-studio-js.js"></script>
+
+
+
+<script src="./assets/js/13-v29-search-language.js"></script>
+
+
+
+
+
+
+
+<script src="./assets/js/14-theme-motion-v33.js"></script>
+
+
+
+
+<script src="./assets/js/15-v35-motion-studio-js.js"></script>
+
+
+<script src="./assets/js/16-v36-structural-theme-controller.js"></script>
+
+
+
+
+
+
+
+<script src="./assets/js/17-v37-complete.js"></script>
+
+
+<script src="./assets/js/18-cloud-accounts-v1.js"></script>
+
+
+
+<script src="./assets/js/19-v42-theme-interactions.js"></script>
+
+<script src="./assets/js/20-v43-theme-motion-js.js"></script>
+
+<script src="./assets/js/21-v44-focus-js.js"></script>
+
+
+
+
+
+<script src="./assets/js/22-theme-secrets-js.js"></script>
+
+
+
+<!-- KashKool v49 — Track 2.0: V3 migration, milestones, tasks, Kanban, timeline, smart alerts, timer links, analytics, templates, archive/undo, and new visual identities. Includes the v48 experience refinements. -->
+<script src="./assets/js/23-learning-os-v50-js.js"></script>
+
+
+<script src="./assets/js/24-frost-theme-v2-js.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+<script src="./assets/js/25-v53-frost-ember-cinematic-js.js"></script>
+
+
+
+
+
+
+
+<script src="./assets/js/26-v55-fire-anime-overhaul-js.js"></script>
+
+
+<script src="./assets/js/27-v56-anime-skybreaker-js.js"></script>
+
+
+<script src="./assets/js/28-v61-emberfire-laheeb-js.js"></script>
+
+
+<script src="./assets/js/29-v64-desktop-theme-motion-bridge.js"></script>
+
+<script src="./assets/js/30-v65-secret-manga-js.js"></script>
+
+<script src="./assets/js/31-v69-focus-multi-comments-js.js"></script>
+
+
+<script src="./assets/js/32-v68-official-image-fallback.js"></script>
+
+  <script src="./assets/js/99-notifications.js"></script>
+</body>
+</html>
