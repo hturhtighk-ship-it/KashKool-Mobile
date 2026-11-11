@@ -1,0 +1,53 @@
+{
+  "name": "kashkool-desktop",
+  "version": "70.0.0",
+  "private": true,
+  "description": "KashKool study planner with Windows tray background support and system notifications.",
+  "main": "desktop/main.cjs",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron .",
+    "check": "node scripts/check-project.cjs",
+    "dist": "electron-builder --win",
+    "dist:win": "electron-builder --win",
+    "dist:portable": "electron-builder --win portable"
+  },
+  "devDependencies": {
+    "electron": "45.2.3",
+    "electron-builder": "26.18.1"
+  },
+  "build": {
+    "appId": "com.kashkool.study",
+    "productName": "KashKool",
+    "asar": true,
+    "directories": {
+      "output": "dist",
+      "buildResources": "assets/icons"
+    },
+    "files": [
+      "index.html",
+      "assets/**/*",
+      "desktop/**/*",
+      "kashkool-sw.js",
+      "kashkool.webmanifest",
+      "package.json"
+    ],
+    "win": {
+      "icon": "assets/icons/kashkool.ico",
+      "target": [
+        { "target": "nsis", "arch": ["x64"] },
+        { "target": "portable", "arch": ["x64"] }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "KashKool",
+      "runAfterFinish": true,
+      "deleteAppDataOnUninstall": false
+    }
+  }
+}

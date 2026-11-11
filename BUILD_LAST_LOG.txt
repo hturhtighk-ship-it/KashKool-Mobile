@@ -1,0 +1,76 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20261110234141
+Username: DESKTOP-942FQPH\HP
+RunAs User: DESKTOP-942FQPH\HP
+Configuration Name: 
+Machine: DESKTOP-942FQPH (Microsoft Windows NT 10.0.19045.0)
+Host Application: powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -File D:\my APP\KashKool_v70_Ready\scripts\build-windows.ps1
+Process ID: 9552
+PSVersion: 5.1.19041.4648
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.19041.4648
+BuildVersion: 10.0.19041.4648
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+==========================================
+ KashKool v70 - Windows build diagnostics
+==========================================
+Project folder: D:\my APP\KashKool_v70_Ready
+Log file: D:\my APP\KashKool_v70_Ready\BUILD_LAST_LOG.txt
+
+Node.js: v24.13.1
+npm: 11.21.0
+
+[1/3] Installing the pinned build tools.
+This step downloads packages and may take a while.
+Please keep this window open until it finishes.
+npm verbose cli C:\Program Files\nodejs\node.exe C:\Users\HP\AppData\Roaming\npm\node_modules\npm\bin\npm-cli.js
+npm info using npm@11.21.0
+npm info using node@v24.13.1
+npm verbose title npm install
+npm verbose argv "install" "--no-audit" "--no-fund" "--loglevel" "verbose"
+npm verbose logfile logs-max:10 dir:C:\Users\HP\AppData\Local\npm-cache\_logs\2026-11-10T21_41_42_587Z-
+npm verbose logfile C:\Users\HP\AppData\Local\npm-cache\_logs\2026-11-10T21_41_42_587Z-debug-0.log
+
+up to date in 2s
+npm warn install-scripts 1 package has install scripts not yet covered by allowScripts:
+npm warn install-scripts   electron-winstaller@5.4.0 (install: node ./script/select-7z-arch.js)
+npm warn install-scripts
+npm warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+npm verbose cwd D:\my APP\KashKool_v70_Ready
+npm verbose os Windows_NT 10.0.19045
+npm verbose node v24.13.1
+npm verbose npm  v11.21.0
+npm verbose exit 0
+npm info ok
+
+[2/3] Checking project files and JavaScript syntax.
+
+> kashkool-desktop@70.0.0 check
+> node scripts/check-project.cjs
+
+OK   Electron entry point is set
+OK   Web manifest is valid JSON
+OK   All local HTML references exist
+OK   Shared Firebase web configuration is embedded
+OK   Timer, reminder engine, and desktop notification bridge are connected
+OK   Desktop tray, background timers, stable local storage origin, and notifications are present
+OK   Preload bridge is present
+OK   JavaScript syntax checked (37 files)
+OK   Application and tray icons are present
+
+9 checks passed; 0 issue(s) found.
+
+[3/3] Building the Windows installer and portable application.
+    [=================================================================================================] 100% | electron
+
+BUILD COMPLETED SUCCESSFULLY.
+The output files are in the dist folder.
+**********************
+Windows PowerShell transcript end
+End time: 20261110234440
+**********************
