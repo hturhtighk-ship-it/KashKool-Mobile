@@ -1,4 +1,4 @@
-$ErrorActionPreference = 'Stop'
+﻿$ErrorActionPreference = 'Stop'
 $projectRoot = Split-Path -Parent $PSScriptRoot
 $logPath = Join-Path $projectRoot 'BUILD_LAST_LOG.txt'
 $exitCode = 0
