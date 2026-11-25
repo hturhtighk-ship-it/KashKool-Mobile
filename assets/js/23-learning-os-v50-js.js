@@ -2223,7 +2223,9 @@
       btn.setAttribute('aria-selected', 'false');
       btn.textContent = '✧ ' + T('Learning OS', 'Learning OS');
       var settings = nav.querySelector('[data-view="settings"]');
-      if (settings) nav.insertBefore(btn, settings);
+      /* The settings tab may live inside a nested group, so it is not always
+         a direct child of the menu. Only a real child can be an anchor. */
+      if (settings && settings.parentNode === nav) nav.insertBefore(btn, settings);
       else nav.appendChild(btn);
     }
     var view = $('view-learning');
