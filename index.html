@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <!--
-  KASHKOOL v70 — modular source build
+  KASHKOOL v71 — modular source build
   Styles are collected in assets/css/kashkool.css.
   JavaScript modules are kept in assets/js and loaded in their original order.
   Keep the sequence in index.html unchanged: several later modules extend the core app.
@@ -11,7 +11,7 @@
 <meta charset="utf-8">
 <script src="./assets/js/00-bootstrap.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>KashKool v70 — Notifications & Desktop Background</title>
+<title>KashKool v71 — Cinematic Themes &amp; Reliable Sync</title>
 <link rel="manifest" href="./kashkool.webmanifest">
 <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAIAAADdvvtQAAADTklEQVR4nO3dMW4USQBAUUB7Ak4AySARgkggWGdE5L4AF+EaXIB8I7IlILLY0BIkvgqBJWStVtrBf6q7uue9aKKelvtPVY3kqnn45PD6AdzXo7VvgG0TEImASAREIiASAZEIiERAJAIiERCJgEgERCIgEgGRCIhEQCR/LPM2N9efl3mjHfjx6dXQ67/98PiEVxs+At1cf1bPbzlcXq19C79hYEDSubcNNTQqIOmciYXWQPfz159vbl+8+/J13TtZ3uHyavRi6CSGjECGn5PYxETma/zU5m/o9AEZfk5r8oaMQCQC2oCZByEBbcO0DQloM+ZsSEAkAtqSCQchAW3MbA0JaHumakhAmzRPQwIiEdBWTTIICWjDZmhIQNu2ekMC2rzD5dWKGQloJ9ZqSED7sUpDAtqV5aczAe3Qkg0JaJ8Wa0hAu7XMdCagnRvdkID2b2hDAjoL46YzAZ2REQ0J6LycvCEBkQiI5NjjXb79/fH2xcuL98Nuhu05agT6Vc+/XoMpjERAJEcFdHfdYw3EXccuonXDfzKFkQiIREAkAiIREImASAREIiASAZEIiERAJAIiERCJgEgERCIgEgGRTP2rzUf6/s+5/8jmsxdv13rrPQS04p8PUxiJgEgERCIgEgGRCIhEQCQCIhEQiYBIBEQiIBIBkQiIREAkAiIREImT6kmcVE9iCiPZwz/V25Ux+66MlxfvZ14D2ZWxIifVk1gDkQiIREAkAiIREImASAREIiASAZEIiERAJAIiERCJgEgERCIgEgGRCIhEQCR2ZezB7LsyJmdXxopMYSQCIhEQiYBIBEQiIBIBkQiIREAkAiIREImASAREIiASAZE4qZ7ESfUkpjASAZEcFdDddY81EHft4aR6uzLsykjsyliRNRCJgEgERCIgEgGRCIhEQCQCIhEQiYBIBEQiIBIBkQiIREAkAiIREImASAREIiASAZEIiERAJAIiERCJgEhOH9DT5zYaz+vkT8cIRDIkIIPQnEY8l6lP53j35evat8D/GDWFGYRmM+iJPHxyeD3iur/cXJ/76U+rG/phHh7QLRmtYoF5YKGA2Ctf40kERCIgEgGRCIhEQCQCIhEQiYBIBEQiIBIBkQiIREAkAiL5CUA5gOWHbLIJAAAAAElFTkSuQmCC" sizes="192x192" type="image/png">
 <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAADK0lEQVR4nO3dPW4TQQCAUUCcgBNAYyRKEA0U0FHR5wJchGtwAXoqOiioIigjQZOrUCChiPBhi+zPrP1etdXacr7MzErj8e37u2e34G/urP0GGJc4SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIg3Z317pcXH2e9/6b9eP90pju/entvkvvMNXJcXnxUxr/tzs7Xfgt7zBKHLA40eB/Tx6GMozHxmuPmZXx48fzXxevPX278djZgd3Y+3+LjhjytrG/YyWXKOEwo/23MPowcoxiwD3EMZLQ+xEESx1iGGjzEMZxx+hDHiAbpQxyDGqEPcYxr9T7EQRLH0NYdPMQxuhX7EMcGrNWHOLZhd3a+fCLi2JKF+xDHxizZhzi2Z7E+xLFJyyxBxLFhc/chjm2btQ9xbN58fYjjGMy0BBHH8Zi8D3EclWn7EMexmbCPQ78O+fXTu18XT16+meq1GdxBI8fvMv645rjtj+N6Dfo4EdYcJHGQ9sdxfQVqTXoiDho5rtagjNNx6KOsJk6QNQdJHCRxkMRBEgdJHCRxkMRBEgdJHCRxkMRBEgdJHCRxkOb9dcj5fP92cr/t8vDxq4VfcatxLP9JnSDTCkkcJHGQxEESB0kcJHGQxEESB0kcJHGQxEESB0kcJHGQnENKcg4pyTmkJGsO0lb3kNpgvID9cTx5+eaPeWSENakNxgtwDinJOaQkC1KSOEjiIImDJA6SOEjiIImDJA6SOEjiIImDJA6SOEjiIImDJA6SDcabMeIG4zHZYLwA0wpJHCRxkMRBEgdJHCRxkMRBEgdJHCRxkMRBEgfJOaQk55CSnENKsuYgiYO0P47rK1Br0hNx0NPK1XNqBynDBuMFbPUcUhuMF2DNQRIHSRwkcZDEQRIHSRwkcZDEQRIHSRwkcZDEQRIHSRwkcZDEQRIHSRwkcZDEQRIHSRwkcZCmjOPBI180Wt+EfwUjB+n2/d2zae94eXFy32Idx7SD9/Qjh8llLZN/8rNMK/pY3hyf+fTTylWmmAXM9684bxxsmqcVkjhI4iCJgyQOkjhI4iCJgyQOkjhI4iCJgyQOkjhIPwH27o4gFEhUcQAAAABJRU5ErkJggg==">
@@ -25,6 +25,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Baloo+Bhaijaan+2:wght@500;700&family=Lalezar&family=Rakkas&family=Readex+Pro:wght@300;400;600&family=Tajawal:wght@500;800&family=El+Messiri:wght@500;700&family=Reem+Kufi:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./assets/css/kashkool.css">
+<!-- KashKool v71: cinematic theme layer — one illustrated backdrop for every store theme. -->
+<link rel="stylesheet" href="./assets/css/kashkool-v71.css">
 
 
 
@@ -1245,6 +1247,11 @@ service cloud.firestore {
 
 
 <script src="./assets/js/32-v68-official-image-fallback.js"></script>
+
+<!-- KashKool v71: cinematic theme layer. Gives every store theme the same
+     illustrated, lit, film-grained backdrop that Skybreaker, The Lost
+     Chapter and Emberfire already had. -->
+<script src="./assets/js/33-v71-cinematic-themes.js"></script>
 
   <script src="./assets/js/99-notifications.js"></script>
 </body>
