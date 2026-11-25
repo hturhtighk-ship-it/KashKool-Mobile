@@ -1,16 +1,15 @@
 {
   "name": "kashkool-desktop",
-  "version": "70.0.0",
+  "version": "71.0.0",
   "private": true,
-  "description": "KashKool study planner with Windows tray background support and system notifications.",
+  "description": "KashKool study planner with Windows tray background support, cinematic store themes and resilient cloud sync.",
   "main": "desktop/main.cjs",
   "scripts": {
     "start": "electron .",
     "dev": "electron .",
     "check": "node scripts/check-project.cjs",
-    "dist": "electron-builder --win",
-    "dist:win": "electron-builder --win",
-    "dist:portable": "electron-builder --win portable"
+    "dist": "electron-builder --win nsis",
+    "dist:win": "electron-builder --win nsis"
   },
   "devDependencies": {
     "electron": "45.2.3",
@@ -35,8 +34,12 @@
     "win": {
       "icon": "assets/icons/kashkool.ico",
       "target": [
-        { "target": "nsis", "arch": ["x64"] },
-        { "target": "portable", "arch": ["x64"] }
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
       ]
     },
     "nsis": {
