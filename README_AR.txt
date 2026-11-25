@@ -1,9 +1,11 @@
-KashKool Mobile v61 — لهيب الجمر (Emberfire)
+KashKool v71 — Cinematic Themes, Resilient Sync, Mobile Repairs
 
 محتويات التحديث:
-- index.html: التطبيق الرئيسي بإصدار v61 وثيم لهيب الجمر.
-- kashkool-sw.js: Service Worker محدث إلى v61 لإجبار المتصفح على إنشاء كاش جديد.
-- kashkool.webmanifest: إعدادات تثبيت التطبيق على الشاشة الرئيسية.
+- assets/js/33-v71-cinematic-themes.js: مشهد سينمائي جديد لكل ثيم في المتجر.
+- assets/css/kashkool-v71.css: طبقة المشهد، انتقالات التبديل الناقصة، وإصلاحات الموبايل.
+- index.html: التطبيق الرئيسي بإصدار v71 مع ربط الطبقة الجديدة.
+- assets/js/18-cloud-accounts-v1.js: مزامنة سحابية أكثر موثوقية.
+- assets/js/23-learning-os-v50-js.js: إصلاح قائمة "المزيد".
 
 طريقة رفع التحديث إلى GitHub:
 1) افتح مستودع KashKool-Mobile.
