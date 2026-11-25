@@ -289,15 +289,11 @@ html[data-store-theme='ocean'] .pomo::after {
 
 /* ------------------------------------------------------------------
    5. Reduced motion and low-power profiles
+   The engine owns the decision and publishes it on the root element,
+   so the canvas and the stylesheet never disagree.
    ------------------------------------------------------------------ */
-body.reduce-motion .kk-cinematic-scene,
-body.motion-ultra .kk-cinematic-scene {
+html[data-kk-cinematic-motion='reduced'] .kk-cinematic-scene {
   display: none !important;
-}
-@media (prefers-reduced-motion: reduce) {
-  html:not([data-kk-desktop-theme-motion='full']) .kk-cinematic-scene {
-    display: none !important;
-  }
 }
 
 /* ------------------------------------------------------------------
