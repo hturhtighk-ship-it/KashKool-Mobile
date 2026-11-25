@@ -46,8 +46,29 @@
   var pendingWrites = new Map(),
     localVersions = Object.create(null),
     lastSyncAt = 0;
+  /* --- v71 sync resilience -------------------------------------------------
+     The previous engine uploaded once and never looked back. A failed upload
+     was re-queued and then forgotten, a tab closed within the debounce window
+     lost the change, a silent listener failure stopped cross-device updates
+     for the rest of the session, and the local version map lived only in
+     memory, so a reload let the cloud overwrite newer local work.
+     These additions keep the same public API and fix all four. */
+  var VERSIONS_KEY = 'kashkool.sync.versions.v1';
+  var SYNC_FLUSH_DELAY = 850;
+  var SYNC_MAX_RETRIES = 6;
+  var SYNC_POLL_MS = 45000;
+  var SYNC_WRITE_CONCURRENCY = 6;
+  var syncing = false;
+  var syncRetries = 0;
+  var syncRetryTimer = null;
+  var syncPollTimer = null;
+  var resubscribeTimer = null;
+  var resubscribeDelay = 2000;
+  var lastSyncError = '';
+  var lastPullAt = 0;
   var nativeSetItem = Storage.prototype.setItem;
   var nativeRemoveItem = Storage.prototype.removeItem;
+  var nativeGetItem = Storage.prototype.getItem;
 
   function ar() {
     return document.documentElement.lang !== 'en' && document.documentElement.dir !== 'ltr';
@@ -470,10 +491,45 @@
     }
     return true;
   }
+  /* --- v71: version bookkeeping -------------------------------------------
+     The local version map used to live only in memory. After a reload the
+     engine no longer knew which side of a conflict was newer, so the cloud
+     silently replaced newer local work. The map is now persisted per account
+     in one global (never synced) key. */
+  function readVersionStore() {
+    try {
+      var raw = nativeGetItem.call(localStorage, VERSIONS_KEY);
+      var parsed = raw ? JSON.parse(raw) : null;
+      return parsed && typeof parsed === 'object' ? parsed : {};
+    } catch (e) {
+      return {};
+    }
+  }
+  function loadLocalVersions(uid) {
+    var store = readVersionStore();
+    var bucket = store[uid || 'default'];
+    var out = Object.create(null);
+    if (bucket && typeof bucket === 'object') {
+      Object.keys(bucket).forEach(function (key) {
+        var stamp = Number(bucket[key]);
+        if (stamp > 0) out[key] = stamp;
+      });
+    }
+    return out;
+  }
+  function persistLocalVersions() {
+    if (!currentUser) return;
+    try {
+      var store = readVersionStore();
+      store[currentUser.uid] = localVersions;
+      nativeSetItem.call(localStorage, VERSIONS_KEY, JSON.stringify(store));
+    } catch (e) {}
+  }
   function queueRecordWrite(key, value, deleted) {
     if (!currentUser || !syncReady || syncApplying || !scopedSyncKey(key, currentUser.uid)) return;
     var stamp = Date.now();
     localVersions[key] = stamp;
+    persistLocalVersions();
     pendingWrites.set(key, {
       key: key,
       value: deleted ? null : String(value == null ? '' : value),
@@ -486,7 +542,7 @@
         '',
       );
     clearTimeout(syncTimer);
-    syncTimer = setTimeout(flushPendingWrites, 850);
+    syncTimer = setTimeout(flushPendingWrites, SYNC_FLUSH_DELAY);
   }
   var CLOUD_CHUNK_SIZE = 100000;
   function makeChunkVersion() {
@@ -563,18 +619,76 @@
     );
     await cleanupOldChunks(col, item.key, version);
   }
-  async function flushPendingWrites() {
-    if (!currentUser || !firestore || !syncReady || !pendingWrites.size) return;
+  function isOnline() {
+    try {
+      if (typeof navigator !== 'undefined' && navigator.onLine === false) return false;
+    } catch (e) {}
+    return true;
+  }
+  function scheduleRetry() {
+    syncRetries++;
+    if (syncRetries > SYNC_MAX_RETRIES) {
+      lastSyncError = lastSyncError || 'sync-retries-exhausted';
+      setBanner(
+        T(
+          'تعذّر رفع بعض التغييرات إلى السحابة. ستُحفظ محليًا وتُرفع عند عودة الاتصال.',
+          'Some changes could not be uploaded. They stay saved locally and will be sent when the connection returns.',
+        ),
+        'error',
+      );
+      return;
+    }
+    var backoff = Math.min(60000, 1500 * Math.pow(2, syncRetries - 1));
+    var jitter = Math.round(Math.random() * 800);
+    clearTimeout(syncRetryTimer);
+    syncRetryTimer = setTimeout(function () {
+      syncRetryTimer = null;
+      flushPendingWrites();
+    }, backoff + jitter);
+  }
+  async function writeBatch(col, items) {
+    /* A phone cannot push hundreds of documents at once. A small worker pool
+       keeps the radio busy without starving the rest of the application. */
+    var index = 0;
+    async function worker() {
+      while (index < items.length) {
+        var item = items[index++];
+        await writeCloudRecord(col, item);
+      }
+    }
+    var workers = [];
+    for (var i = 0; i < Math.min(SYNC_WRITE_CONCURRENCY, items.length); i++) workers.push(worker());
+    await Promise.all(workers);
+  }
+  async function flushPendingWrites(options) {
+    options = options || {};
+    if (!currentUser || !firestore || !syncReady || !pendingWrites.size) return false;
+    if (syncing) {
+      /* Another flush is already running. Make sure a follow-up pass happens
+         as soon as it finishes, instead of dropping the newest writes. */
+      clearTimeout(syncTimer);
+      syncTimer = setTimeout(flushPendingWrites, 600);
+      return false;
+    }
+    if (!isOnline()) {
+      lastSyncError = 'offline';
+      clearTimeout(syncRetryTimer);
+      syncRetryTimer = setTimeout(function () {
+        syncRetryTimer = null;
+        flushPendingWrites();
+      }, 4000);
+      return false;
+    }
+    syncing = true;
     var uid = currentUser.uid,
       batch = Array.from(pendingWrites.values());
     pendingWrites.clear();
     try {
-      await Promise.all(
-        batch.map(function (item) {
-          return writeCloudRecord(recordCollection(uid), item);
-        }),
-      );
+      await writeBatch(recordCollection(uid), batch);
+      syncRetries = 0;
+      lastSyncError = '';
       lastSyncAt = Date.now();
+      persistLocalVersions();
       setBanner(
         T(
           'المزامنة تعمل بنجاح · آخر حفظ ' + new Date(lastSyncAt).toLocaleTimeString('ar-EG'),
@@ -582,11 +696,21 @@
         ),
         'ok',
       );
+      syncing = false;
+      if (pendingWrites.size) {
+        clearTimeout(syncTimer);
+        syncTimer = setTimeout(flushPendingWrites, 400);
+      }
+      return true;
     } catch (err) {
       batch.forEach(function (item) {
-        pendingWrites.set(item.key, item);
+        if (!pendingWrites.has(item.key)) pendingWrites.set(item.key, item);
       });
+      lastSyncError = (err && (err.code || err.message)) || 'upload-failed';
       setBanner(authError(err, 'رفع البيانات'), 'error');
+      syncing = false;
+      if (options.retry !== false) scheduleRetry();
+      return false;
     }
   }
   function unpackCloudSnapshot(snapshot, uid) {
@@ -708,28 +832,61 @@
   }
   async function bootstrapCloud(uid) {
     if (!firestore) throw new Error('Cloud database is not initialized.');
+    /* Restore the version map first. Without it the engine cannot tell which
+       side of a difference is the newer one, and newer local work would be
+       replaced by the cloud on every reload. */
+    localVersions = loadLocalVersions(uid);
     var col = recordCollection(uid),
       snap = await col.get(),
       parsed = unpackCloudSnapshot(snap, uid),
-      changed = false;
+      changed = false,
+      localWins = [];
     parsed.records.forEach(function (rec) {
       var localValue = null;
       try {
         localValue = localStorage.getItem(rec.key);
       } catch (e) {}
       var remoteValue = rec.deleted === true ? null : String(rec.value == null ? '' : rec.value),
-        remoteStamp = Number(rec.updatedAt) || 0;
+        remoteStamp = Number(rec.updatedAt) || 0,
+        localStamp = localVersions[rec.key] || 0;
       if (localValue !== null && localValue !== remoteValue && remoteStamp > 0) {
-        rememberSyncConflict(uid, rec.key, 'remote', localValue, false, remoteValue, 0, remoteStamp);
+        if (localStamp > remoteStamp) {
+          /* This device already had the newer copy. Keep it and push it back
+             instead of silently dropping the local change. */
+          rememberSyncConflict(
+            uid,
+            rec.key,
+            'local',
+            remoteValue,
+            remoteValue === null,
+            localValue,
+            localStamp,
+            remoteStamp,
+          );
+          localWins.push({ key: rec.key, value: localValue });
+          return;
+        }
+        rememberSyncConflict(uid, rec.key, 'remote', localValue, false, remoteValue, localStamp, remoteStamp);
       }
       if (applyRemoteRecord(rec, uid)) changed = true;
     });
+    /* Push the newer local copies back to the cloud. */
+    if (localWins.length) {
+      await Promise.all(
+        localWins.map(function (item) {
+          var stamp = Date.now();
+          localVersions[item.key] = stamp;
+          return writeCloudRecord(col, { key: item.key, value: item.value, deleted: false, updatedAt: stamp });
+        }),
+      );
+    }
     var locals = readLocalPairs(uid),
       missing = [];
     locals.forEach(function (pair) {
       if (!parsed.manifestKeys[pair[0]]) missing.push(pair);
     });
-    // Missing local-only keys are uploaded; data already in the cloud wins on matching keys.
+    /* Local-only keys are uploaded. On matching keys the newer side wins, and
+       the version map decides which side that is. */
     if (missing.length) {
       await Promise.all(
         missing.map(function (pair) {
@@ -759,6 +916,8 @@
           'error',
         );
     }
+    persistLocalVersions();
+    lastPullAt = Date.now();
     return changed;
   }
   function listenForCloudChanges(uid) {
@@ -817,12 +976,40 @@
           }
           if (applyRemoteRecord(rec, uid)) changed = true;
         });
+        persistLocalVersions();
+        lastPullAt = Date.now();
         if (changed) requestRemoteReload();
       },
       function (err) {
+        lastSyncError = (err && (err.code || err.message)) || 'listener-failed';
         setBanner(authError(err, 'مزامنة البيانات'), 'error');
+        /* A dropped listener used to end cross-device updates for the rest
+           of the session. Re-open it with a growing delay instead. */
+        syncReady = false;
+        try {
+          if (unsubscribeRecords) unsubscribeRecords();
+        } catch (e) {}
+        unsubscribeRecords = null;
+        clearTimeout(resubscribeTimer);
+        resubscribeTimer = setTimeout(function () {
+          resubscribeTimer = null;
+          if (!currentUser || currentUser.uid !== uid) return;
+          listenForCloudChanges(uid);
+        }, resubscribeDelay);
+        resubscribeDelay = Math.min(30000, resubscribeDelay * 2);
       },
     );
+    resubscribeDelay = 2000;
+  }
+  /* A gentle poll keeps the two devices in step even when the realtime
+     listener is slow, blocked or already gone. */
+  function startSyncPoll() {
+    clearInterval(syncPollTimer);
+    syncPollTimer = setInterval(function () {
+      if (!currentUser || !syncReady || document.hidden) return;
+      if (Date.now() - lastPullAt < SYNC_POLL_MS) return;
+      pullRemoteState();
+    }, 15000);
   }
   async function connectUser(user, options) {
     options = options || {};
@@ -837,6 +1024,7 @@
     setAuthUi();
     var changed = await bootstrapCloud(uid);
     listenForCloudChanges(uid);
+    startSyncPoll();
     setAuthUi();
     return { accountChanged: oldId !== uid, dataChanged: changed };
   }
@@ -1032,6 +1220,9 @@
       listeningUid = '';
       syncReady = false;
       currentUser = null;
+      clearInterval(syncPollTimer);
+      clearTimeout(syncRetryTimer);
+      clearTimeout(resubscribeTimer);
       await auth.signOut();
       setSignedOutLocally();
       authActionInProgress = false;
@@ -1041,8 +1232,59 @@
       setBanner(authError(err, 'تسجيل الخروج'), 'error');
     }
   }
+  /* Pull the cloud state down and merge it with what this device holds.
+     The newer side wins, decided by the version map. */
+  async function pullRemoteState() {
+    if (!currentUser || !firestore) return false;
+    var uid = currentUser.uid,
+      col = recordCollection(uid),
+      snap = await col.get(),
+      parsed = unpackCloudSnapshot(snap, uid),
+      changed = false,
+      localWins = [];
+    parsed.records.forEach(function (rec) {
+      var localValue = null;
+      try {
+        localValue = localStorage.getItem(rec.key);
+      } catch (e) {}
+      var remoteValue = rec.deleted === true ? null : String(rec.value == null ? '' : rec.value),
+        remoteStamp = Number(rec.updatedAt) || 0,
+        localStamp = localVersions[rec.key] || 0;
+      if (localValue !== null && localValue !== remoteValue && remoteStamp > 0 && localStamp > remoteStamp) {
+        rememberSyncConflict(
+          uid,
+          rec.key,
+          'local',
+          remoteValue,
+          remoteValue === null,
+          localValue,
+          localStamp,
+          remoteStamp,
+        );
+        localWins.push({ key: rec.key, value: localValue });
+        return;
+      }
+      if (applyRemoteRecord(rec, uid)) changed = true;
+    });
+    if (localWins.length) {
+      await Promise.all(
+        localWins.map(function (item) {
+          var stamp = Date.now();
+          localVersions[item.key] = stamp;
+          return writeCloudRecord(col, { key: item.key, value: item.value, deleted: false, updatedAt: stamp });
+        }),
+      );
+    }
+    persistLocalVersions();
+    lastPullAt = Date.now();
+    return changed;
+  }
   async function syncNow() {
     if (!currentUser) return;
+    if (syncing) {
+      setBanner(T('المزامنة جارية بالفعل…', 'A sync is already running…'), '');
+      return;
+    }
     var b = $('cloudSyncNowBtn');
     if (b) b.disabled = true;
     try {
@@ -1062,15 +1304,21 @@
         await Promise.all(
           local.map(function (pair) {
             var stamp = Date.now();
+            localVersions[pair[0]] = stamp;
             return writeCloudRecord(col, { key: pair[0], value: pair[1], deleted: false, updatedAt: stamp });
           }),
         );
+      persistLocalVersions();
       lastSyncAt = Date.now();
+      lastPullAt = Date.now();
+      syncRetries = 0;
+      lastSyncError = '';
       setBanner(
         T('اكتملت المزامنة. بيانات هذا الحساب محدثة.', 'Sync complete. This account’s data is up to date.'),
         'ok',
       );
     } catch (err) {
+      lastSyncError = (err && (err.code || err.message)) || 'sync-failed';
       setBanner(authError(err, 'مزامنة البيانات'), 'error');
     } finally {
       if (b) b.disabled = false;
@@ -1144,6 +1392,11 @@
         connected: !!(firestore && currentUser && syncReady),
         pendingWrites: pendingWrites.size,
         lastSyncAt: lastSyncAt,
+        lastPullAt: lastPullAt,
+        lastSyncError: lastSyncError,
+        syncing: !!syncing,
+        retries: syncRetries,
+        online: isOnline(),
         conflicts: currentUser ? getSyncConflictSummaries(currentUser.uid) : [],
       };
     },
@@ -1177,7 +1430,43 @@
     true,
   );
   document.addEventListener('visibilitychange', function () {
-    if (!document.hidden) reloadWhenSafe();
+    if (document.hidden) {
+      /* Leaving the page must not lose the last edit. */
+      flushPendingWrites({ retry: false });
+      persistLocalVersions();
+      return;
+    }
+    reloadWhenSafe();
+    if (currentUser && syncReady) pullRemoteState().catch(function () {});
+  });
+  /* The same guarantee for a closed tab, a locked phone or a navigated
+     away app. The upload starts immediately; the browser may finish it
+     after the page is gone. */
+  window.addEventListener('pagehide', function () {
+    flushPendingWrites({ retry: false });
+    persistLocalVersions();
+  });
+  window.addEventListener('beforeunload', function () {
+    flushPendingWrites({ retry: false });
+    persistLocalVersions();
+  });
+  window.addEventListener('online', function () {
+    lastSyncError = '';
+    syncRetries = 0;
+    clearTimeout(syncRetryTimer);
+    syncRetryTimer = null;
+    flushPendingWrites();
+    if (currentUser && syncReady) pullRemoteState().catch(function () {});
+  });
+  window.addEventListener('offline', function () {
+    lastSyncError = 'offline';
+    setBanner(
+      T(
+        'لا يوجد اتصال بالإنترنت. التغييرات محفوظة محليًا وستُرفع تلقائيًا عند عودة الاتصال.',
+        'No internet connection. Changes are saved locally and will upload automatically when the connection returns.',
+      ),
+      'error',
+    );
   });
   try {
     new MutationObserver(function (records) {
