@@ -1,10 +1,9 @@
 @echo off
 setlocal EnableExtensions
 
-rem Always run the builder in a persistent CMD window.
-rem This prevents the console from disappearing when npm reports an error.
+rem Keep a dedicated CMD window open so the user can read the result.
 if /I not "%~1"=="--persistent" (
-  start "KashKool v70 Builder" "%ComSpec%" /k ""%~f0" --persistent"
+  start "KashKool v71 Installer Builder" "%ComSpec%" /k ""%~f0" --persistent"
   exit /b 0
 )
 
@@ -18,11 +17,12 @@ if errorlevel 1 (
 )
 
 echo ==========================================
-echo       KashKool v70 - Windows Builder
+echo       KashKool v71 - Windows Installer
 echo ==========================================
 echo.
-echo This window will stay open after the build.
-echo A full log will be saved as BUILD_LAST_LOG.txt.
+echo This build creates the Setup installer only.
+echo The Portable target was separated because it stalled on some systems.
+echo The command window will remain open after completion.
 echo.
 
 where powershell.exe >nul 2>nul
@@ -40,7 +40,7 @@ echo.
 if "%BUILD_EXIT%"=="0" (
   echo ==========================================
   echo BUILD COMPLETED SUCCESSFULLY
-  echo Check the dist folder for the Setup and Portable EXE files.
+  echo Open the installer shown below, or find it in dist.
   echo ==========================================
   if exist "%~dp0dist" explorer "%~dp0dist"
 ) else (
