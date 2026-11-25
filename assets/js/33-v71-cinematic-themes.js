@@ -123,15 +123,42 @@
     };
   }
 
-  function reduced() {
-    if (root.getAttribute('data-kk-desktop-theme-motion') === 'full') return false;
-    if (body.classList.contains('reduce-motion')) return true;
-    if (body.classList.contains('motion-ultra')) return true;
+  /* The Windows build is the home of the cinematic themes, so it always
+     shows them at full strength, exactly like Emberfire, Skybreaker and
+     The Lost Chapter already do. A phone or tablet keeps following the
+     operating system and the in-app motion setting. */
+  function desktopRuntime() {
+    var ua = (window.navigator && window.navigator.userAgent) || '';
+    if (/Electron\//i.test(ua)) return true;
+    if (window.process && window.process.versions && window.process.versions.electron) return true;
     try {
-      return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-    } catch (e) {
-      return false;
-    }
+      var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+      if (fine && (window.innerWidth || 0) >= 820) return true;
+    } catch (e) {}
+    return false;
+  }
+  function motionMode() {
+    if (root.getAttribute('data-kk-desktop-theme-motion') === 'full') return 'full';
+    if (desktopRuntime()) return 'full';
+    if (body.classList.contains('reduce-motion')) return 'reduced';
+    if (body.classList.contains('motion-ultra')) return 'reduced';
+    try {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return 'reduced';
+    } catch (e) {}
+    return 'full';
+  }
+  var lastMode = '';
+  function applyMotionMode() {
+    var mode = motionMode();
+    if (mode === lastMode) return mode;
+    lastMode = mode;
+    try {
+      root.setAttribute('data-kk-cinematic-motion', mode);
+    } catch (e) {}
+    return mode;
+  }
+  function reduced() {
+    return applyMotionMode() === 'reduced';
   }
 
   /* ------------------------------------------------------------------
@@ -1224,6 +1251,8 @@
     try {
       root.classList.add('has-cinematic-scene');
     } catch (e) {}
+    lastMode = '';
+    applyMotionMode();
     return layer;
   }
 
@@ -1242,7 +1271,9 @@
     currentTheme = '';
     try {
       root.classList.remove('has-cinematic-scene');
+      root.removeAttribute('data-kk-cinematic-motion');
     } catch (e) {}
+    lastMode = '';
   }
 
   function fit() {
