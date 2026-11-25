@@ -1,0 +1,331 @@
+/* ================================================================
+   KASHKOOL v71 — CINEMATIC THEME LAYER
+   Loaded after assets/css/kashkool.css so it can extend, never fight.
+   ================================================================ */
+
+/* ------------------------------------------------------------------
+   1. The cinematic backdrop
+   The layer is mounted as the first child of <body>. It paints above
+   the theme background and below the interface, so text contrast is
+   untouched while the theme gains real depth.
+   ------------------------------------------------------------------ */
+.kk-cinematic-scene {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.kk-cinematic-scene__canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+/* Keep the interface above the backdrop. */
+html[data-store-theme] body .wrap {
+  position: relative;
+  z-index: 2;
+}
+/* The older particle layer must stay visible on top of the artwork. */
+html[data-store-theme] body .kk-theme-motion-particles {
+  z-index: 1;
+}
+
+/* ------------------------------------------------------------------
+   2. Theme-change wipes for the themes that never had one
+   Skybreaker, The Lost Chapter and Emberfire already own their own
+   dramatic transitions. These complete the set for the remaining
+   store themes.
+   ------------------------------------------------------------------ */
+.kk-theme-transition--rose {
+  background:
+    radial-gradient(ellipse at 50% 78%, rgba(240, 196, 196, 0.9), transparent 42%),
+    linear-gradient(160deg, #3b1a2e, #6b3a44 55%, #3b1a2e);
+  border-inline: 6px solid rgba(156, 90, 76, 0.45);
+}
+.kk-theme-transition--rose.kk-theme-transition-run {
+  animation: kkMotionWipeRose 0.92s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.kk-theme-transition--golden {
+  background:
+    linear-gradient(100deg, rgba(244, 169, 0, 0.9), transparent 42%),
+    linear-gradient(160deg, #2b241f, #6a5848 55%, #2b241f);
+}
+.kk-theme-transition--golden.kk-theme-transition-run {
+  animation: kkMotionWipeGolden 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.kk-theme-transition--metro {
+  background:
+    repeating-linear-gradient(90deg, rgba(22, 119, 210, 0.16) 0 2px, transparent 2px 74px),
+    repeating-linear-gradient(0deg, rgba(192, 57, 43, 0.13) 0 2px, transparent 2px 74px),
+    linear-gradient(150deg, #e9eef4, #ffffff 55%, #cbd7e3);
+}
+.kk-theme-transition--metro.kk-theme-transition-run {
+  animation: kkMotionWipeMetro 0.82s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.kk-theme-transition--blueprint {
+  background:
+    repeating-linear-gradient(0deg, rgba(85, 214, 255, 0.13) 0 1px, transparent 1px 22px),
+    repeating-linear-gradient(90deg, rgba(85, 214, 255, 0.13) 0 1px, transparent 1px 22px),
+    linear-gradient(160deg, #081b33, #102b4b);
+  border: 2px solid rgba(85, 214, 255, 0.4);
+}
+.kk-theme-transition--blueprint.kk-theme-transition-run {
+  animation: kkMotionWipeBlueprint 0.88s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.kk-theme-transition--swiss {
+  background:
+    repeating-linear-gradient(90deg, rgba(23, 23, 23, 0.07) 0 1px, transparent 1px 96px),
+    linear-gradient(120deg, #f7f6f2 0 46%, #e53935 46% 52%, #f7f6f2 52% 100%);
+}
+.kk-theme-transition--swiss.kk-theme-transition-run {
+  animation: kkMotionWipeSwiss 0.72s cubic-bezier(0.66, 0, 0.25, 1) both;
+}
+.kk-theme-transition--frost {
+  background:
+    radial-gradient(circle at 50% 30%, rgba(180, 220, 255, 0.85), transparent 40%),
+    linear-gradient(160deg, #d4e4f7, #4a6fa5 70%, #1e2f4a);
+}
+.kk-theme-transition--frost.kk-theme-transition-run {
+  animation: kkMotionWipeFrost 0.86s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes kkMotionWipeRose {
+  0% {
+    clip-path: ellipse(0 0 at 50% 100%);
+    opacity: 0.6;
+  }
+  38%,
+  66% {
+    clip-path: ellipse(150% 150% at 50% 100%);
+    opacity: 1;
+  }
+  100% {
+    clip-path: ellipse(0 0 at 50% 100%);
+    opacity: 0;
+  }
+}
+@keyframes kkMotionWipeGolden {
+  0% {
+    transform: translateX(-104%) skewX(-9deg);
+    opacity: 0.75;
+  }
+  26%,
+  68% {
+    transform: translateX(0) skewX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(104%) skewX(6deg);
+    opacity: 0;
+  }
+}
+@keyframes kkMotionWipeMetro {
+  0% {
+    clip-path: polygon(0 100%, 0 100%, 0 100%, 0 100%);
+    opacity: 0.85;
+  }
+  24% {
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+  }
+  44% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  62% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  100% {
+    clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+    opacity: 0;
+  }
+}
+@keyframes kkMotionWipeBlueprint {
+  0% {
+    clip-path: inset(50% 50% 50% 50%);
+    opacity: 0.5;
+  }
+  40%,
+  66% {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+  }
+  100% {
+    clip-path: inset(50% 50% 50% 50%);
+    opacity: 0;
+  }
+}
+@keyframes kkMotionWipeSwiss {
+  0% {
+    transform: translateX(-102%);
+  }
+  24%,
+  70% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(102%);
+  }
+}
+@keyframes kkMotionWipeFrost {
+  0% {
+    clip-path: polygon(50% 0, 56% 44%, 100% 50%, 56% 56%, 50% 100%, 44% 56%, 0 50%, 44% 44%);
+    opacity: 0.8;
+  }
+  42%,
+  66% {
+    clip-path: polygon(50% 0, 56% 44%, 100% 50%, 56% 56%, 50% 100%, 44% 56%, 0 50%, 44% 44%);
+    opacity: 1;
+  }
+  100% {
+    clip-path: polygon(50% 0, 56% 44%, 100% 50%, 56% 56%, 50% 100%, 44% 56%, 0 50%, 44% 44%);
+    opacity: 0;
+  }
+}
+
+/* ------------------------------------------------------------------
+   3. Ocean — the mobile repair
+   The Ocean theme painted three separate full-viewport overlays and
+   animated two of them forever. On a phone that meant a constant
+   repaint of a box larger than the screen, for an effect that was
+   never even visible (the layer sat behind the page background).
+   Now there is one cheap layer, it is visible, and it still drifts.
+   ------------------------------------------------------------------ */
+html[data-store-theme='ocean'] body:after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background: radial-gradient(ellipse at 50% 108%, rgba(85, 214, 255, 0.16), transparent 44%);
+  animation: oceanDrift 18s ease-in-out infinite alternate;
+  will-change: transform;
+}
+/* The second, duplicated Ocean rule is neutralised. */
+html[data-store-theme='ocean'] .pomo::after {
+  width: 150%;
+  height: 150%;
+  top: -25%;
+  left: -25%;
+}
+@media (max-width: 760px) {
+  html[data-store-theme='ocean'] body:after {
+    animation: none !important;
+    will-change: auto !important;
+    background: radial-gradient(ellipse at 50% 106%, rgba(85, 214, 255, 0.2), transparent 46%) !important;
+  }
+  html[data-store-theme='ocean'] .hero::before {
+    animation: none !important;
+    background-position: 50% 50% !important;
+  }
+  html[data-store-theme='ocean'] .pomo::after {
+    animation: none !important;
+    width: 130% !important;
+    height: 130% !important;
+    top: -15% !important;
+    left: -15% !important;
+  }
+  html[data-store-theme='ocean'] .tab[aria-selected='true'] {
+    animation: none !important;
+  }
+  html[data-store-theme='ocean'] nav.tabs {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+}
+/* The Ocean theme pins its navigation to the top of the page with a rule that
+   outranks the phone layout. On a phone that turned the bottom navigation
+   into a full-screen overlay that covered the whole interface and made every
+   page unreachable. The navigation belongs at the bottom. */
+@media (max-width: 700px) {
+  html[data-store-theme='ocean'] nav.tabs {
+    top: auto;
+    bottom: 7px;
+    left: 7px;
+    right: 7px;
+    height: auto;
+    justify-content: space-between !important;
+  }
+  html[data-store-theme='ocean'] .masthead {
+    margin-top: 10px;
+    padding: 14px 16px;
+  }
+}
+
+/* ------------------------------------------------------------------
+   4. General phone repairs
+   The two ambient auras are blurred, blended and fixed. On a phone
+   that is three expensive full-screen composited layers before the
+   interface even starts. The backdrop canvas now carries the depth,
+   so the auras become a cheap tint instead of a blurred blend.
+   ------------------------------------------------------------------ */
+@media (max-width: 760px) {
+  body {
+    background-attachment: scroll !important;
+  }
+  /* A perspective on the page wrapper turns that wrapper into the containing
+     block of every fixed-position child. The phone navigation is a fixed
+     element inside the wrapper, so it was anchored to the bottom of the whole
+     document instead of the bottom of the screen, and stayed off screen
+     until the user scrolled to the very end. Touch devices never use the
+     3D tilt, so the perspective can go. */
+  .wrap {
+    perspective: none !important;
+  }
+  body::before,
+  body::after {
+    filter: none !important;
+    mix-blend-mode: normal !important;
+    opacity: 0.18 !important;
+    will-change: auto !important;
+  }
+  html.has-cinematic-scene body::before,
+  html.has-cinematic-scene body::after {
+    opacity: 0.1 !important;
+  }
+  .kk-cinematic-scene {
+    opacity: 0.92;
+  }
+}
+
+/* ------------------------------------------------------------------
+   5. Reduced motion and low-power profiles
+   ------------------------------------------------------------------ */
+body.reduce-motion .kk-cinematic-scene,
+body.motion-ultra .kk-cinematic-scene {
+  display: none !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  html:not([data-kk-desktop-theme-motion='full']) .kk-cinematic-scene {
+    display: none !important;
+  }
+}
+
+/* ------------------------------------------------------------------
+   6. Cinematic surface polish
+   A single light source per theme, matched to the artwork, so cards
+   and the hero read as lit objects rather than flat rectangles.
+   ------------------------------------------------------------------ */
+html[data-store-theme='classic'] body .hero,
+html[data-store-theme='school'] body .hero {
+  box-shadow:
+    0 22px 70px rgba(30, 24, 14, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+html[data-store-theme='ocean'] body .hero,
+html[data-store-theme='sunset'] body .hero,
+html[data-store-theme='galaxy'] body .hero {
+  box-shadow:
+    0 22px 70px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+html[data-store-theme='cyber'] body .hero,
+html[data-store-theme='blueprint'] body .hero {
+  box-shadow:
+    0 0 0 1px rgba(49, 242, 194, 0.14),
+    0 22px 70px rgba(0, 0, 0, 0.34);
+}
+html[data-store-theme='mono'] body .hero,
+html[data-store-theme='swiss'] body .hero,
+html[data-store-theme='metro'] body .hero {
+  box-shadow: 6px 6px 0 rgba(23, 23, 23, 0.16);
+}
