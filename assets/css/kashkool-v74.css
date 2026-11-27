@@ -1,0 +1,871 @@
+/* ================================================================
+   KASHKOOL v74 — PAGE TRANSITIONS
+
+   Every theme now travels between pages in its own way.
+
+   A theme switch had its own curtain. Moving between pages did
+   not: every page change slid the same way, in every theme, like
+   one interface wearing nineteen coats.
+
+   This file gives each of the nineteen themes its own crossing.
+   A curtain covers the screen, the page changes underneath it, and
+   the curtain leaves in the language of the theme you are wearing:
+
+   CLASSIC    a sheet of ruled paper drawn down and pulled away
+   SCHOOL     an exercise-book margin rule sweeping across
+   FOOTBALL   a floodlit band of turf crossing the pitch
+   GALAXY     a nebula opening like an iris
+   CYBER      the frame tearing itself into scanlines
+   NATURE     a wind of leaves crossing the window
+   ACADEMIA   a parchment drape drawn from the right
+   OCEAN      a wave rising and falling back
+   SUNSET     a flare of amber opening and closing
+   MONO       one hard graphic bar, black against white
+   FROST      ice crystals forming and breaking
+   ROSE       petals drifting across
+   GOLDEN     a shaft of late light crossing the room
+   METRO      a transit line drawing itself across the map
+   BLUEPRINT  a drafting wipe with its measurement ticks
+   SWISS      one bold red rule sweeping the page
+   FIRE       embers rising and burning out
+   ANIME      speed lines slashing across the frame
+   MANGA      printed ink spreading and drying
+
+   The colours come from the theme itself: --kk-signature is the
+   identity colour, --margin the secondary one, and --paper and
+   --sheet the material of the theme. Nothing here is painted with
+   a colour that does not belong to the theme wearing it.
+   ================================================================ */
+
+/* ------------------------------------------------------------------
+   1. The layer
+   Above the interface, below the toasts and the dialogs.
+   ------------------------------------------------------------------ */
+.kk-page-transition-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 9400;
+  pointer-events: none;
+  overflow: hidden;
+}
+.kk-page-transition {
+  position: absolute;
+  inset: 0;
+  display: block;
+  will-change: clip-path, transform, opacity, background-position;
+  backface-visibility: hidden;
+}
+:root {
+  --kk-page-cover: 0.24s;
+  --kk-page-reveal: 0.34s;
+}
+
+/* ------------------------------------------------------------------
+   2. The paint of each curtain
+   ------------------------------------------------------------------ */
+
+/* CLASSIC — ruled paper */
+.kk-page-transition--classic {
+  background:
+    repeating-linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--margin) 16%, transparent) 0 1px,
+      transparent 1px 34px
+    ),
+    linear-gradient(180deg, var(--sheet), var(--paper));
+}
+
+/* SCHOOL — the exercise book */
+.kk-page-transition--school {
+  background:
+    repeating-linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--ink-faint) 22%, transparent) 0 1px,
+      transparent 1px 46px
+    ),
+    linear-gradient(90deg, var(--paper), var(--sheet));
+}
+
+/* FOOTBALL — floodlit turf */
+.kk-page-transition--football {
+  background:
+    repeating-linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--sheet) 16%, transparent) 0 2px,
+      transparent 2px 120px
+    ),
+    linear-gradient(160deg, color-mix(in srgb, var(--kk-signature) 80%, #000) 0%, #0b2719 78%);
+}
+
+/* GALAXY — the nebula */
+.kk-page-transition--galaxy {
+  background:
+    radial-gradient(
+      circle at 62% 38%,
+      color-mix(in srgb, var(--margin) 60%, transparent) 0 12%,
+      transparent 46%
+    ),
+    radial-gradient(
+      circle at 38% 62%,
+      color-mix(in srgb, var(--kk-signature) 70%, transparent) 0 10%,
+      transparent 52%
+    ),
+    linear-gradient(160deg, #0b0d26, #05060f);
+}
+
+/* CYBER — the torn frame */
+.kk-page-transition--cyber {
+  background: repeating-linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--kk-signature) 55%, transparent) 0 14px,
+    color-mix(in srgb, var(--margin) 42%, transparent) 14px 26px,
+    transparent 26px 48px
+  );
+}
+
+/* NATURE — leaves in the wind */
+.kk-page-transition--nature {
+  background:
+    radial-gradient(
+      circle at 20% 40%,
+      color-mix(in srgb, var(--kk-signature) 55%, transparent) 0 4%,
+      transparent 5%
+    ),
+    radial-gradient(
+      circle at 62% 68%,
+      color-mix(in srgb, var(--margin) 45%, transparent) 0 3%,
+      transparent 4%
+    ),
+    radial-gradient(
+      circle at 84% 26%,
+      color-mix(in srgb, var(--kk-signature) 45%, transparent) 0 3.4%,
+      transparent 4.4%
+    ),
+    linear-gradient(120deg, color-mix(in srgb, var(--kk-signature) 55%, #fff) 0%, #dce8d5 70%);
+}
+
+/* ACADEMIA — parchment and gilt */
+.kk-page-transition--academia {
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0 92%,
+      color-mix(in srgb, var(--kk-signature) 80%, transparent) 92% 100%
+    ),
+    linear-gradient(90deg, var(--paper), var(--sheet));
+}
+
+/* OCEAN — the water */
+.kk-page-transition--ocean {
+  background:
+    radial-gradient(
+      circle at 30% 18%,
+      color-mix(in srgb, var(--margin) 40%, transparent) 0 6%,
+      transparent 7%
+    ),
+    linear-gradient(180deg, color-mix(in srgb, var(--kk-signature) 70%, #00121d) 0%, #041725 100%);
+}
+
+/* SUNSET — the flare */
+.kk-page-transition--sunset {
+  background:
+    radial-gradient(
+      circle at 50% 62%,
+      color-mix(in srgb, var(--kk-signature) 85%, transparent) 0 8%,
+      color-mix(in srgb, var(--margin) 45%, transparent) 30%,
+      transparent 68%
+    ),
+    linear-gradient(180deg, #3a1626, #5a2630);
+}
+
+/* MONO — one hard bar */
+.kk-page-transition--mono {
+  background: linear-gradient(
+    90deg,
+    var(--ink) 0 50%,
+    var(--sheet) 50% 100%
+  );
+}
+
+/* FROST — the crystal */
+.kk-page-transition--frost {
+  background:
+    linear-gradient(
+      45deg,
+      transparent 46%,
+      color-mix(in srgb, var(--kk-signature) 70%, transparent) 47% 53%,
+      transparent 54%
+    ),
+    linear-gradient(
+      -45deg,
+      transparent 46%,
+      color-mix(in srgb, var(--kk-signature) 70%, transparent) 47% 53%,
+      transparent 54%
+    ),
+    linear-gradient(180deg, var(--sheet), var(--paper));
+}
+
+/* ROSE — petals */
+.kk-page-transition--rose {
+  background:
+    radial-gradient(
+      circle at 30% 30%,
+      color-mix(in srgb, var(--margin) 55%, transparent) 0 5%,
+      transparent 6%
+    ),
+    radial-gradient(
+      circle at 70% 66%,
+      color-mix(in srgb, var(--kk-signature) 50%, transparent) 0 4%,
+      transparent 5%
+    ),
+    linear-gradient(120deg, var(--paper), var(--sheet));
+}
+
+/* GOLDEN — the shaft of light */
+.kk-page-transition--golden {
+  background: linear-gradient(
+    104deg,
+    transparent 26%,
+    color-mix(in srgb, var(--kk-signature) 72%, transparent) 46%,
+    color-mix(in srgb, var(--margin) 45%, transparent) 58%,
+    transparent 76%
+  );
+}
+
+/* METRO — the line */
+.kk-page-transition--metro {
+  background:
+    radial-gradient(
+      circle at 12% 50%,
+      var(--sheet) 0 7px,
+      color-mix(in srgb, var(--margin) 90%, transparent) 7px 12px,
+      transparent 13px
+    ),
+    linear-gradient(
+      90deg,
+      transparent 0 6%,
+      var(--kk-signature) 6% 8%,
+      transparent 8% 100%
+    ),
+    linear-gradient(180deg, var(--paper), var(--sheet));
+}
+
+/* BLUEPRINT — the drafting wipe */
+.kk-page-transition--blueprint {
+  background:
+    repeating-linear-gradient(
+      0deg,
+      color-mix(in srgb, var(--kk-signature) 18%, transparent) 0 1px,
+      transparent 1px 18px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--kk-signature) 18%, transparent) 0 1px,
+      transparent 1px 18px
+    ),
+    linear-gradient(180deg, #0a1e38, var(--paper));
+}
+
+/* SWISS — the bold rule */
+.kk-page-transition--swiss {
+  background:
+    linear-gradient(
+      180deg,
+      transparent 0 38%,
+      var(--kk-signature) 38% 62%,
+      transparent 62% 100%
+    ),
+    linear-gradient(180deg, var(--sheet), var(--paper));
+}
+
+/* FIRE — the embers */
+.kk-page-transition--fire {
+  background:
+    radial-gradient(
+      circle at 24% 70%,
+      color-mix(in srgb, var(--margin) 70%, transparent) 0 2%,
+      transparent 2.6%
+    ),
+    radial-gradient(
+      circle at 58% 52%,
+      color-mix(in srgb, var(--kk-signature) 70%, transparent) 0 2.4%,
+      transparent 3%
+    ),
+    radial-gradient(
+      circle at 82% 76%,
+      color-mix(in srgb, var(--margin) 60%, transparent) 0 1.8%,
+      transparent 2.4%
+    ),
+    linear-gradient(0deg, color-mix(in srgb, var(--kk-signature) 65%, #000) 0%, #160d09 78%);
+}
+
+/* ANIME — the speed lines */
+.kk-page-transition--anime {
+  background: repeating-linear-gradient(
+    74deg,
+    color-mix(in srgb, var(--kk-signature) 72%, transparent) 0 3px,
+    transparent 3px 26px,
+    color-mix(in srgb, var(--margin) 45%, transparent) 26px 28px,
+    transparent 28px 58px
+  );
+}
+
+/* MANGA — the printed ink */
+.kk-page-transition--manga {
+  background:
+    radial-gradient(
+      circle at 72% 30%,
+      color-mix(in srgb, var(--margin) 85%, transparent) 0 6%,
+      transparent 7%
+    ),
+    radial-gradient(
+      circle at 30% 74%,
+      color-mix(in srgb, var(--margin) 60%, transparent) 0 3.4%,
+      transparent 4%
+    ),
+    linear-gradient(140deg, var(--paper), var(--sheet));
+}
+
+/* ------------------------------------------------------------------
+   3. The crossing — cover, then reveal
+   The cover brings the curtain over the page, the reveal takes it
+   away and shows the page that came next.
+   ------------------------------------------------------------------ */
+/* The crossing is always defined. Whether it is shown is decided by
+   the motion gate below, the same gate the rest of the application
+   uses, so the page never changes behind a curtain that cannot move. */
+.kk-page-transition.is-cover {
+  animation-duration: var(--kk-page-cover, 0.24s);
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  animation-fill-mode: both;
+}
+.kk-page-transition.is-reveal {
+  animation-duration: var(--kk-page-reveal, 0.34s);
+  animation-timing-function: cubic-bezier(0.3, 0, 0.2, 1);
+  animation-fill-mode: both;
+}
+
+  /* CLASSIC — the sheet is drawn down, then pulled back up */
+  .kk-page-transition--classic.is-cover {
+    animation-name: kk74-cover-classic;
+  }
+  .kk-page-transition--classic.is-reveal {
+    animation-name: kk74-reveal-classic;
+  }
+  @keyframes kk74-cover-classic {
+    from {
+      clip-path: inset(0 0 100% 0);
+    }
+    to {
+      clip-path: inset(0 0 0 0);
+    }
+  }
+  @keyframes kk74-reveal-classic {
+    from {
+      clip-path: inset(0 0 0 0);
+    }
+    to {
+      clip-path: inset(100% 0 0 0);
+    }
+  }
+
+  /* SCHOOL — the margin rule sweeps across */
+  .kk-page-transition--school.is-cover {
+    animation-name: kk74-cover-school;
+  }
+  .kk-page-transition--school.is-reveal {
+    animation-name: kk74-reveal-school;
+  }
+  @keyframes kk74-cover-school {
+    from {
+      clip-path: inset(0 100% 0 0);
+    }
+    to {
+      clip-path: inset(0 0 0 0);
+    }
+  }
+  @keyframes kk74-reveal-school {
+    from {
+      clip-path: inset(0 0 0 0);
+    }
+    to {
+      clip-path: inset(0 0 0 100%);
+    }
+  }
+
+  /* FOOTBALL — a band of turf crosses the pitch */
+  .kk-page-transition--football.is-cover {
+    animation-name: kk74-cover-football;
+  }
+  .kk-page-transition--football.is-reveal {
+    animation-name: kk74-reveal-football;
+  }
+  @keyframes kk74-cover-football {
+    from {
+      clip-path: polygon(0 100%, 0 78%, 100% 100%, 100% 100%);
+    }
+    to {
+      clip-path: polygon(0 0, 0 -22%, 100% 0, 100% 78%);
+    }
+  }
+  @keyframes kk74-reveal-football {
+    from {
+      clip-path: polygon(0 0, 0 -22%, 100% 0, 100% 78%);
+    }
+    to {
+      clip-path: polygon(0 100%, 0 78%, 100% 100%, 100% 100%);
+    }
+  }
+
+  /* GALAXY — the nebula opens */
+  .kk-page-transition--galaxy.is-cover {
+    animation-name: kk74-cover-galaxy;
+  }
+  .kk-page-transition--galaxy.is-reveal {
+    animation-name: kk74-reveal-galaxy;
+  }
+  @keyframes kk74-cover-galaxy {
+    from {
+      clip-path: circle(0% at 50% 48%);
+      opacity: 0.4;
+    }
+    to {
+      clip-path: circle(78% at 50% 48%);
+      opacity: 1;
+    }
+  }
+  @keyframes kk74-reveal-galaxy {
+    from {
+      clip-path: circle(78% at 50% 48%);
+      opacity: 1;
+    }
+    to {
+      clip-path: circle(120% at 50% 48%);
+      opacity: 0;
+    }
+  }
+
+  /* CYBER — the frame tears */
+  .kk-page-transition--cyber.is-cover {
+    animation-name: kk74-cover-cyber, kk74-cyber-jitter;
+  }
+  .kk-page-transition--cyber.is-reveal {
+    animation-name: kk74-reveal-cyber, kk74-cyber-jitter;
+  }
+  @keyframes kk74-cover-cyber {
+    from {
+      opacity: 0;
+      background-position: 0 0;
+    }
+    to {
+      opacity: 1;
+      background-position: 0 0;
+    }
+  }
+  @keyframes kk74-reveal-cyber {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+      transform: translateX(3%);
+    }
+  }
+  @keyframes kk74-cyber-jitter {
+    0%,
+    100% {
+      filter: none;
+    }
+    22% {
+      filter: hue-rotate(28deg) saturate(1.5);
+    }
+    48% {
+      filter: hue-rotate(-22deg) saturate(1.3);
+    }
+  }
+
+  /* NATURE — the leaves cross the window */
+  .kk-page-transition--nature.is-cover {
+    animation-name: kk74-cover-nature;
+  }
+  .kk-page-transition--nature.is-reveal {
+    animation-name: kk74-reveal-nature;
+  }
+  @keyframes kk74-cover-nature {
+    from {
+      clip-path: polygon(0 22%, 100% 0, 100% 78%, 0 100%);
+    }
+    to {
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+  }
+  @keyframes kk74-reveal-nature {
+    from {
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+    to {
+      clip-path: polygon(0 100%, 100% 78%, 100% 100%, 0 100%);
+    }
+  }
+
+  /* ACADEMIA — the drape is drawn from the right */
+  .kk-page-transition--academia.is-cover {
+    animation-name: kk74-cover-academia;
+  }
+  .kk-page-transition--academia.is-reveal {
+    animation-name: kk74-reveal-academia;
+  }
+  @keyframes kk74-cover-academia {
+    from {
+      clip-path: inset(0 100% 0 0);
+    }
+    to {
+      clip-path: inset(0 0 0 0);
+    }
+  }
+  @keyframes kk74-reveal-academia {
+    from {
+      clip-path: inset(0 0 0 0);
+    }
+    to {
+      clip-path: inset(0 100% 0 0);
+    }
+  }
+
+  /* OCEAN — the wave rises and falls */
+  .kk-page-transition--ocean.is-cover {
+    animation-name: kk74-cover-ocean;
+  }
+  .kk-page-transition--ocean.is-reveal {
+    animation-name: kk74-reveal-ocean;
+  }
+  @keyframes kk74-cover-ocean {
+    from {
+      clip-path: polygon(0 100%, 22% 92%, 46% 99%, 70% 90%, 100% 97%, 100% 100%, 0 100%);
+    }
+    to {
+      clip-path: polygon(0 0, 22% -8%, 46% 2%, 70% -7%, 100% 0, 100% 100%, 0 100%);
+    }
+  }
+  @keyframes kk74-reveal-ocean {
+    from {
+      clip-path: polygon(0 0, 22% -8%, 46% 2%, 70% -7%, 100% 0, 100% 100%, 0 100%);
+    }
+    to {
+      clip-path: polygon(0 100%, 22% 92%, 46% 99%, 70% 90%, 100% 97%, 100% 100%, 0 100%);
+    }
+  }
+
+  /* SUNSET — the flare opens and closes */
+  .kk-page-transition--sunset.is-cover {
+    animation-name: kk74-cover-sunset;
+  }
+  .kk-page-transition--sunset.is-reveal {
+    animation-name: kk74-reveal-sunset;
+  }
+  @keyframes kk74-cover-sunset {
+    from {
+      clip-path: circle(4% at 50% 62%);
+      opacity: 0.55;
+    }
+    to {
+      clip-path: circle(80% at 50% 62%);
+      opacity: 1;
+    }
+  }
+  @keyframes kk74-reveal-sunset {
+    from {
+      clip-path: circle(80% at 50% 62%);
+      opacity: 1;
+    }
+    to {
+      clip-path: circle(4% at 50% 62%);
+      opacity: 0;
+    }
+  }
+
+  /* MONO — the graphic bar */
+  .kk-page-transition--mono.is-cover {
+    animation-name: kk74-cover-mono;
+  }
+  .kk-page-transition--mono.is-reveal {
+    animation-name: kk74-reveal-mono;
+  }
+  @keyframes kk74-cover-mono {
+    from {
+      clip-path: inset(0 100% 0 0);
+    }
+    to {
+      clip-path: inset(0 0 0 0);
+    }
+  }
+  @keyframes kk74-reveal-mono {
+    from {
+      clip-path: inset(0 0 0 0);
+    }
+    to {
+      clip-path: inset(0 0 0 100%);
+    }
+  }
+
+  /* FROST — the crystal forms and breaks */
+  .kk-page-transition--frost.is-cover {
+    animation-name: kk74-cover-frost;
+  }
+  .kk-page-transition--frost.is-reveal {
+    animation-name: kk74-reveal-frost;
+  }
+  @keyframes kk74-cover-frost {
+    from {
+      clip-path: polygon(50% 50%, 30% 34%, 34% 12%, 54% 24%, 68% 4%, 74% 30%, 96% 22%, 88% 46%, 100% 60%, 76% 68%, 86% 92%, 62% 84%, 48% 100%, 40% 78%, 14% 86%, 22% 62%, 0 50%, 26% 42%);
+    }
+    to {
+      clip-path: polygon(50% 50%, -20% -20%, 120% -20%, 120% 120%, -20% 120%);
+    }
+  }
+  @keyframes kk74-reveal-frost {
+    from {
+      clip-path: polygon(50% 50%, -20% -20%, 120% -20%, 120% 120%, -20% 120%);
+    }
+    to {
+      clip-path: polygon(50% 50%, 44% 40%, 58% 22%, 62% 46%, 80% 38%, 74% 58%, 92% 66%, 70% 74%, 78% 90%, 54% 82%, 40% 96%, 40% 72%, 18% 78%, 26% 58%, 4% 48%, 30% 42%);
+    }
+  }
+
+  /* ROSE — the petals drift */
+  .kk-page-transition--rose.is-cover {
+    animation-name: kk74-cover-rose;
+  }
+  .kk-page-transition--rose.is-reveal {
+    animation-name: kk74-reveal-rose;
+  }
+  @keyframes kk74-cover-rose {
+    from {
+      clip-path: inset(0 100% 0 0);
+      opacity: 0.7;
+    }
+    to {
+      clip-path: inset(0 0 0 0);
+      opacity: 1;
+    }
+  }
+  @keyframes kk74-reveal-rose {
+    from {
+      clip-path: inset(0 0 0 0);
+      opacity: 1;
+    }
+    to {
+      clip-path: inset(0 0 0 100%);
+      opacity: 0;
+    }
+  }
+
+  /* GOLDEN — the shaft of light */
+  .kk-page-transition--golden.is-cover {
+    animation-name: kk74-cover-golden;
+  }
+  .kk-page-transition--golden.is-reveal {
+    animation-name: kk74-reveal-golden;
+  }
+  @keyframes kk74-cover-golden {
+    from {
+      clip-path: polygon(-30% 0, -10% 0, 60% 100%, 40% 100%);
+    }
+    to {
+      clip-path: polygon(20% 0, 40% 0, 110% 100%, 90% 100%);
+    }
+  }
+  @keyframes kk74-reveal-golden {
+    from {
+      clip-path: polygon(20% 0, 40% 0, 110% 100%, 90% 100%);
+    }
+    to {
+      clip-path: polygon(120% 0, 140% 0, 230% 100%, 210% 100%);
+    }
+  }
+
+  /* METRO — the line draws itself */
+  .kk-page-transition--metro.is-cover {
+    animation-name: kk74-cover-metro;
+  }
+  .kk-page-transition--metro.is-reveal {
+    animation-name: kk74-reveal-metro;
+  }
+  @keyframes kk74-cover-metro {
+    from {
+      clip-path: inset(0 100% 0 0);
+    }
+    to {
+      clip-path: inset(0 0 0 0);
+    }
+  }
+  @keyframes kk74-reveal-metro {
+    from {
+      clip-path: inset(0 0 0 0);
+    }
+    to {
+      clip-path: inset(0 0 0 100%);
+    }
+  }
+
+  /* BLUEPRINT — the drafting wipe */
+  .kk-page-transition--blueprint.is-cover {
+    animation-name: kk74-cover-blueprint;
+  }
+  .kk-page-transition--blueprint.is-reveal {
+    animation-name: kk74-reveal-blueprint;
+  }
+  @keyframes kk74-cover-blueprint {
+    from {
+      clip-path: inset(0 0 100% 0);
+      opacity: 0.6;
+    }
+    to {
+      clip-path: inset(0 0 0 0);
+      opacity: 1;
+    }
+  }
+  @keyframes kk74-reveal-blueprint {
+    from {
+      clip-path: inset(0 0 0 0);
+      opacity: 1;
+    }
+    to {
+      clip-path: inset(0 0 100% 0);
+      opacity: 0;
+    }
+  }
+
+  /* SWISS — the bold rule */
+  .kk-page-transition--swiss.is-cover {
+    animation-name: kk74-cover-swiss;
+  }
+  .kk-page-transition--swiss.is-reveal {
+    animation-name: kk74-reveal-swiss;
+  }
+  @keyframes kk74-cover-swiss {
+    from {
+      clip-path: inset(0 100% 0 0);
+    }
+    to {
+      clip-path: inset(0 0 0 0);
+    }
+  }
+  @keyframes kk74-reveal-swiss {
+    from {
+      clip-path: inset(0 0 0 0);
+    }
+    to {
+      clip-path: inset(0 0 0 100%);
+    }
+  }
+
+  /* FIRE — the embers rise */
+  .kk-page-transition--fire.is-cover {
+    animation-name: kk74-cover-fire;
+  }
+  .kk-page-transition--fire.is-reveal {
+    animation-name: kk74-reveal-fire;
+  }
+  @keyframes kk74-cover-fire {
+    from {
+      clip-path: inset(100% 0 0 0);
+    }
+    to {
+      clip-path: inset(0 0 0 0);
+    }
+  }
+  @keyframes kk74-reveal-fire {
+    from {
+      clip-path: inset(0 0 0 0);
+    }
+    to {
+      clip-path: inset(0 0 100% 0);
+    }
+  }
+
+  /* ANIME — the speed lines slash */
+  .kk-page-transition--anime.is-cover {
+    animation-name: kk74-cover-anime, kk74-anime-lines;
+  }
+  .kk-page-transition--anime.is-reveal {
+    animation-name: kk74-reveal-anime, kk74-anime-lines;
+  }
+  @keyframes kk74-cover-anime {
+    from {
+      opacity: 0;
+      transform: translateX(-14%);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  @keyframes kk74-reveal-anime {
+    from {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateX(14%);
+    }
+  }
+  @keyframes kk74-anime-lines {
+    from {
+      background-position: 0 0;
+    }
+    to {
+      background-position: 120px 0;
+    }
+  }
+
+  /* MANGA — the ink spreads */
+  .kk-page-transition--manga.is-cover {
+    animation-name: kk74-cover-manga;
+  }
+  .kk-page-transition--manga.is-reveal {
+    animation-name: kk74-reveal-manga;
+  }
+  @keyframes kk74-cover-manga {
+    from {
+      clip-path: circle(2% at 62% 34%);
+      opacity: 0.75;
+    }
+    to {
+      clip-path: circle(82% at 62% 34%);
+      opacity: 1;
+    }
+  }
+  @keyframes kk74-reveal-manga {
+    from {
+      clip-path: circle(82% at 62% 34%);
+      opacity: 1;
+    }
+    to {
+      clip-path: circle(2% at 62% 34%);
+      opacity: 0;
+    }
+  }
+
+/* ------------------------------------------------------------------
+   4. The calmer crossing
+   When the system asks for less movement the page still changes,
+   it just arrives without a curtain.
+   ------------------------------------------------------------------ */
+body.reduce-motion .kk-page-transition,
+body.motion-ultra .kk-page-transition {
+  animation: none !important;
+  display: none !important;
+}
+
+/* ------------------------------------------------------------------
+   5. Phones
+   The crossing is shorter so a tap never feels like a wait.
+   ------------------------------------------------------------------ */
+@media (max-width: 760px) {
+  :root {
+    --kk-page-cover: 0.18s;
+    --kk-page-reveal: 0.26s;
+  }
+}
