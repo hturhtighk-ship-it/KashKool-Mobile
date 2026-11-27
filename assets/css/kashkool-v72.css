@@ -1,0 +1,503 @@
+/* ================================================================
+   KASHKOOL v72 — PER-THEME SIGNATURE MOTION
+   The motion system was first written for ten themes. Six themes
+   joined the store later and never received their own entrance,
+   hover, press, tab or ambient signature.
+
+   This file gives frost, rose, golden, metro, blueprint and swiss
+   exactly the same treatment the original ten already had, so every
+   theme in the store answers a click, a hover and a page change in
+   its own language — the way Skybreaker, The Lost Chapter and
+   Emberfire answer in theirs.
+
+   It also carries the layer that holds the per-theme press mark
+   painted by the cinematic engine.
+   ================================================================ */
+
+/* ------------------------------------------------------------------
+   1. The signature layer
+   The press mark is painted above the interface so it is never hidden
+   behind a card, and below the toasts so a message stays readable.
+   ------------------------------------------------------------------ */
+.kk-signature-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 9990;
+  pointer-events: none;
+  overflow: hidden;
+}
+.kk-signature-layer__canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ------------------------------------------------------------------
+   2. View entrance — one motion per theme
+   ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: no-preference) {
+  html[data-store-theme='frost'] .view.kk-theme-view-enter {
+    animation: kk72-frost 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both !important;
+  }
+  html[data-store-theme='rose'] .view.kk-theme-view-enter {
+    animation: kk72-rose 0.62s cubic-bezier(0.2, 0.7, 0.2, 1) both !important;
+  }
+  html[data-store-theme='golden'] .view.kk-theme-view-enter {
+    animation: kk72-golden 0.68s cubic-bezier(0.2, 0.7, 0.2, 1) both !important;
+  }
+  html[data-store-theme='metro'] .view.kk-theme-view-enter {
+    animation: kk72-metro 0.58s cubic-bezier(0.2, 0.8, 0.2, 1) both !important;
+  }
+  html[data-store-theme='blueprint'] .view.kk-theme-view-enter {
+    animation: kk72-blueprint 0.62s steps(9, end) both !important;
+  }
+  html[data-store-theme='swiss'] .view.kk-theme-view-enter {
+    animation: kk72-swiss 0.5s cubic-bezier(0.66, 0, 0.25, 1) both !important;
+  }
+
+  @keyframes kk72-frost {
+    from {
+      opacity: 0;
+      clip-path: inset(0 0 100% 0);
+      filter: blur(7px);
+    }
+    to {
+      opacity: 1;
+      clip-path: inset(0 0 0 0);
+      filter: blur(0);
+    }
+  }
+  @keyframes kk72-rose {
+    from {
+      opacity: 0;
+      transform: translateY(22px) scale(0.96) rotate(-1.4deg);
+      filter: blur(6px);
+    }
+  }
+  @keyframes kk72-golden {
+    from {
+      opacity: 0;
+      transform: perspective(900px) rotateX(14deg) translateY(20px);
+      filter: saturate(1.6) brightness(1.18);
+    }
+  }
+  @keyframes kk72-metro {
+    from {
+      opacity: 0;
+      transform: translateX(-30px);
+      clip-path: polygon(0 0, 0 0, 16% 0, 16% 100%, 0 100%);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+  }
+  @keyframes kk72-blueprint {
+    from {
+      opacity: 0.15;
+      clip-path: inset(0 100% 0 0);
+    }
+    to {
+      opacity: 1;
+      clip-path: inset(0 0 0 0);
+    }
+  }
+  @keyframes kk72-swiss {
+    from {
+      opacity: 0;
+      transform: translateX(24px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------
+   3. Hover reaction — one reaction per theme
+   ------------------------------------------------------------------ */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  html[data-store-theme='frost']
+    :is(
+      .panel,
+      .dashMetric,
+      .dashCard,
+      .statCard,
+      .settingCard,
+      .notecard,
+      .sub,
+      .linkitem,
+      .studyStep
+    ):hover {
+    transform: translateY(-3px);
+    border-color: color-mix(in srgb, var(--mark) 42%, transparent) !important;
+    box-shadow:
+      0 0 0 1px color-mix(in srgb, var(--mark) 22%, transparent),
+      0 18px 38px -24px color-mix(in srgb, var(--mark) 70%, transparent) !important;
+  }
+  html[data-store-theme='rose']
+    :is(
+      .panel,
+      .dashMetric,
+      .dashCard,
+      .statCard,
+      .settingCard,
+      .notecard,
+      .sub,
+      .linkitem,
+      .studyStep
+    ):hover {
+    transform: translateY(-4px) scale(1.012);
+    border-radius: 22px 22px 10px 22px !important;
+    transition-timing-function: cubic-bezier(0.3, 1.4, 0.5, 1);
+  }
+  html[data-store-theme='golden']
+    :is(
+      .panel,
+      .dashMetric,
+      .dashCard,
+      .statCard,
+      .settingCard,
+      .notecard,
+      .sub,
+      .linkitem,
+      .studyStep
+    ):hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 42px -22px var(--mark) !important;
+    filter: saturate(1.08);
+  }
+  html[data-store-theme='metro']
+    :is(
+      .panel,
+      .dashMetric,
+      .dashCard,
+      .statCard,
+      .settingCard,
+      .notecard,
+      .sub,
+      .linkitem,
+      .studyStep
+    ):hover {
+    transform: translateX(-4px);
+    border-inline-start-color: var(--mark) !important;
+    box-shadow: -6px 0 0 -2px var(--mark) !important;
+  }
+  html[data-store-theme='blueprint']
+    :is(
+      .panel,
+      .dashMetric,
+      .dashCard,
+      .statCard,
+      .settingCard,
+      .notecard,
+      .sub,
+      .linkitem,
+      .studyStep
+    ):hover {
+    outline: 1px dashed color-mix(in srgb, var(--mark) 62%, transparent);
+    outline-offset: 3px;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(85, 214, 255, 0.05) 0 1px, transparent 1px 11px),
+      repeating-linear-gradient(90deg, rgba(85, 214, 255, 0.05) 0 1px, transparent 1px 11px) !important;
+  }
+  html[data-store-theme='swiss']
+    :is(
+      .panel,
+      .dashMetric,
+      .dashCard,
+      .statCard,
+      .settingCard,
+      .notecard,
+      .sub,
+      .linkitem,
+      .studyStep
+    ):hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 7px 7px 0 var(--ink) !important;
+  }
+}
+
+/* ------------------------------------------------------------------
+   4. Press reaction — one reaction per theme
+   ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: no-preference) {
+  html[data-store-theme='frost']
+    :is(.tab, .ghost, .add, .iconbtn, .fchip, .storeUse, .storeBuy, .themeFilter):active {
+    transform: scale(0.985) translateY(1px);
+  }
+  html[data-store-theme='rose']
+    :is(.tab, .ghost, .add, .iconbtn, .fchip, .storeUse, .storeBuy, .themeFilter):active {
+    transform: scale(0.97) rotate(-1deg);
+  }
+  html[data-store-theme='golden']
+    :is(.tab, .ghost, .add, .iconbtn, .fchip, .storeUse, .storeBuy, .themeFilter):active {
+    transform: translateY(2px) scale(0.985);
+  }
+  html[data-store-theme='metro']
+    :is(.tab, .ghost, .add, .iconbtn, .fchip, .storeUse, .storeBuy, .themeFilter):active {
+    transform: translateX(-2px) scale(0.99);
+  }
+  html[data-store-theme='blueprint']
+    :is(.tab, .ghost, .add, .iconbtn, .fchip, .storeUse, .storeBuy, .themeFilter):active {
+    transform: scale(0.99);
+    outline: 1px dashed color-mix(in srgb, var(--mark) 55%, transparent);
+    outline-offset: 2px;
+  }
+  html[data-store-theme='swiss']
+    :is(.tab, .ghost, .add, .iconbtn, .fchip, .storeUse, .storeBuy, .themeFilter):active {
+    transform: translate(2px, 2px);
+    box-shadow: 3px 3px 0 var(--ink) !important;
+  }
+}
+
+/* ------------------------------------------------------------------
+   5. Tab signature — the small mark on the active tab
+   ------------------------------------------------------------------ */
+html[data-store-theme='frost'] .tab[aria-selected='true'] {
+  animation: kk72-tabFrost 0.58s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+html[data-store-theme='rose'] .tab[aria-selected='true'] {
+  animation: kk72-tabRose 0.58s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+html[data-store-theme='golden'] .tab[aria-selected='true'] {
+  animation: kk72-tabGolden 0.58s ease-out both;
+}
+html[data-store-theme='metro'] .tab[aria-selected='true'] {
+  animation: kk72-tabMetro 0.58s steps(5, end) both;
+}
+html[data-store-theme='blueprint'] .tab[aria-selected='true'] {
+  animation: kk72-tabBlueprint 0.58s steps(4, end) both;
+}
+html[data-store-theme='swiss'] .tab[aria-selected='true'] {
+  animation: kk72-tabSwiss 0.44s steps(4, end) both;
+}
+@keyframes kk72-tabFrost {
+  0% {
+    transform: translateY(3px);
+    filter: blur(3px);
+  }
+  100% {
+    transform: none;
+    filter: none;
+  }
+}
+@keyframes kk72-tabRose {
+  0% {
+    transform: scale(0.94) rotate(-2deg);
+    opacity: 0.7;
+  }
+  100% {
+    transform: none;
+    opacity: 1;
+  }
+}
+@keyframes kk72-tabGolden {
+  0% {
+    box-shadow: 0 0 0 rgba(244, 169, 0, 0);
+    text-shadow: 0 0 0 rgba(244, 169, 0, 0);
+  }
+  50% {
+    box-shadow: 0 0 18px rgba(244, 169, 0, 0.28);
+    text-shadow: 0 0 12px rgba(244, 169, 0, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 0 rgba(244, 169, 0, 0);
+    text-shadow: 0 0 0 rgba(244, 169, 0, 0);
+  }
+}
+@keyframes kk72-tabMetro {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 26px 0;
+  }
+}
+@keyframes kk72-tabBlueprint {
+  0% {
+    opacity: 0.3;
+    clip-path: inset(0 100% 0 0);
+  }
+  100% {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+  }
+}
+@keyframes kk72-tabSwiss {
+  0% {
+    transform: translateX(6px);
+  }
+  100% {
+    transform: none;
+  }
+}
+
+/* ------------------------------------------------------------------
+   6. Ambient signature on the header — one small moving thing per theme
+   ------------------------------------------------------------------ */
+body:not(.motion-performance) html[data-store-theme='frost'] .masthead::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  inset-inline-end: 12%;
+  width: 26px;
+  height: 26px;
+  pointer-events: none;
+  background:
+    linear-gradient(45deg, transparent 46%, color-mix(in srgb, var(--mark) 75%, transparent) 47% 53%, transparent 54%),
+    linear-gradient(-45deg, transparent 46%, color-mix(in srgb, var(--mark) 75%, transparent) 47% 53%, transparent 54%);
+  opacity: 0.55;
+  animation: kk72-glint 8s ease-in-out infinite;
+}
+body:not(.motion-performance) html[data-store-theme='rose'] .masthead::before {
+  content: '❀';
+  position: absolute;
+  bottom: -6px;
+  inset-inline-start: 0;
+  font-size: 17px;
+  color: color-mix(in srgb, var(--mark) 85%, transparent);
+  pointer-events: none;
+  z-index: 1;
+  animation: kk72-petal 13s ease-in-out infinite;
+}
+body:not(.motion-performance) html[data-store-theme='golden'] .masthead::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    104deg,
+    transparent 38%,
+    color-mix(in srgb, var(--mark) 26%, transparent) 50%,
+    transparent 62%
+  ) 130% 0/220% 100% no-repeat;
+  animation: kk72-shaft 10s ease-in-out infinite;
+}
+body:not(.motion-performance) html[data-store-theme='metro'] .masthead::before {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  inset-inline-start: 0;
+  width: 150px;
+  height: 3px;
+  pointer-events: none;
+  border-radius: 2px;
+  background:
+    radial-gradient(circle at 8px 50%, #1677d2 0 4px, transparent 5px),
+    linear-gradient(90deg, #1677d2, #c0392b);
+  background-size: 150px 3px, 150px 3px;
+  animation: kk72-route 7s linear infinite;
+}
+body:not(.motion-performance) html[data-store-theme='blueprint'] .masthead::before {
+  content: '';
+  position: absolute;
+  top: 12px;
+  inset-inline-end: 10%;
+  width: 22px;
+  height: 22px;
+  pointer-events: none;
+  border: 1px solid color-mix(in srgb, var(--mark) 70%, transparent);
+  border-radius: 50%;
+  background:
+    linear-gradient(var(--mark), var(--mark)) center/1px 100% no-repeat,
+    linear-gradient(var(--mark), var(--mark)) center/100% 1px no-repeat;
+  opacity: 0.6;
+  animation: kk72-cross 4.5s steps(2, end) infinite;
+}
+body:not(.motion-performance) html[data-store-theme='swiss'] .masthead::before {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  inset-inline-start: 0;
+  width: 68px;
+  height: 4px;
+  pointer-events: none;
+  background: #e53935;
+  animation: kk72-rule 6s ease-in-out infinite;
+}
+@keyframes kk72-glint {
+  0%,
+  70% {
+    opacity: 0.2;
+    transform: rotate(0deg) scale(0.8);
+  }
+  78% {
+    opacity: 0.85;
+    transform: rotate(45deg) scale(1.1);
+  }
+  100% {
+    opacity: 0.2;
+    transform: rotate(90deg) scale(0.8);
+  }
+}
+@keyframes kk72-petal {
+  0% {
+    transform: translate(0, 0) rotate(0);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(38px, -54px) rotate(220deg);
+    opacity: 0;
+  }
+}
+@keyframes kk72-shaft {
+  0%,
+  100% {
+    background-position: 140% 0;
+  }
+  50% {
+    background-position: -40% 0;
+  }
+}
+@keyframes kk72-route {
+  0% {
+    background-position: 0 0, 0 0;
+  }
+  100% {
+    background-position: 150px 0, 150px 0;
+  }
+}
+@keyframes kk72-cross {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.75;
+  }
+}
+@keyframes kk72-rule {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(120px);
+  }
+}
+
+/* ------------------------------------------------------------------
+   7. The press mark itself
+   The engine paints it on the signature layer. A thin ring keeps the
+   mark readable on any background.
+   ------------------------------------------------------------------ */
+.kk-signature-layer__canvas {
+  mix-blend-mode: normal;
+}
+
+/* ------------------------------------------------------------------
+   8. Phones
+   The mark stays, but smaller and shorter, so a tap never costs a
+   frame budget the rest of the interface needs.
+   ------------------------------------------------------------------ */
+@media (max-width: 760px) {
+  .kk-signature-layer {
+    z-index: 9988;
+  }
+}
