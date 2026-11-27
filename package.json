@@ -1,8 +1,8 @@
 {
   "name": "kashkool-desktop",
-  "version": "72.0.0",
+  "version": "74.0.0",
   "private": true,
-  "description": "KashKool study planner with Windows tray background support, signature themes with their own motion and identity colour, and resilient cloud sync.",
+  "description": "KashKool study planner with Windows tray background support, signature themes with their own motion, identity colour and page transition, and resilient cloud sync.",
   "main": "desktop/main.cjs",
   "scripts": {
     "start": "electron .",
