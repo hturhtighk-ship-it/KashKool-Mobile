@@ -1,13 +1,15 @@
-KashKool v72 — Signature Motion, Signature Colours, Resilient Sync
+KashKool v74 — Themed Page Transitions, Signature Motion, Signature Colours
 
 محتويات التحديث:
+- assets/css/kashkool-v74.css: انتقال بين الصفحات لكل ثيم — 19 ستارًا مختلفًا بلون هوية كل ثيم.
+- assets/js/35-v74-page-transitions.js: محرّك الانتقال (غطاء الستار ← تبديل الصفحة ← كشف الستار).
 - assets/css/kashkool-v72.css: توقيع حركي كامل لكل ثيم (دخول، تمرير، ضغط، تبويب، ترويسة) للثيمات الستة الناقصة: frost, rose, golden, metro, blueprint, swiss.
 - assets/js/34-v72-signature-press.js: بصمة الضغط — علامة مرسومة مختلفة لكل ثيم في 19 ثيمًا، بلون هوية الثيم.
 - assets/css/kashkool-v73.css: لون مميز واحد لكل ثيم له معنى + لون هامش ثانوي، بلا أبيض سافي ولا أسود سافي.
 - assets/js/01-app-core.js: تحديث معاينات المتجر وأوصاف الثيمات لتطابق ألوان الهوية الجديدة.
-- index.html: التطبيق الرئيسي بإصدار v72 مع ربط الطبقات الجديدة.
-- kashkool-sw.js: ذاكرة العمل دون اتصال باسم kashkool-shell-v72 مع الملفات الجديدة.
-- package.json: النسخة 72.0.0.
+- index.html: التطبيق الرئيسي بإصدار v74 مع ربط الطبقات الجديدة.
+- kashkool-sw.js: ذاكرة العمل دون اتصال باسم kashkool-shell-v74 مع الملفات الجديدة.
+- package.json: النسخة 74.0.0.
 
 ألوان الهوية الجديدة:
 - classic #a8791f / school #b2472e / football #4fae6a / galaxy #8b7cff / cyber #31f2c2
