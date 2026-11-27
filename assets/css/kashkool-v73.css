@@ -1,0 +1,613 @@
+/* ================================================================
+   KASHKOOL v73 — THEME IDENTITY COLOURS
+
+   Every theme in the store now carries one signature colour that
+   means something, and not one of them is built on pure white or
+   pure black.
+
+   The neutrals are tinted toward the theme's own hue, so a theme
+   reads as one material rather than as a generic interface with a
+   different accent. The signature colour is published as
+   --kk-signature and is used for the theme's own chip in the store.
+
+   CLASSIC   brass clasp on laid paper
+   SCHOOL    the red margin line of an exercise book
+   FOOTBALL  floodlit turf
+   GALAXY    nebula violet
+   CYBER     terminal mint
+   NATURE    leaf green
+   ACADEMIA  antique gilt on parchment
+   OCEAN     lagoon teal
+   SUNSET    amber hour
+   MONO      carbon and chalk
+   FROST     glacier mineral
+   ROSE      dusty rose
+   GOLDEN    golden-hour mustard
+   METRO     transit blue
+   BLUEPRINT blueprint cyan
+   SWISS     signal red
+   FIRE      ember copper
+   ANIME     sakura crimson
+   MANGA     printed ink and a vermillion seal
+   ================================================================ */
+
+/* ------------------------------------------------------------------
+   CLASSIC — brass clasp, blue-black fountain pen ink
+   ------------------------------------------------------------------ */
+:root[data-store-theme='classic'] {
+  --kk-signature: #a8791f;
+  --paper: #f1ecdf !important;
+  --sheet: #f9f4e8 !important;
+  --grid: #dcd3be !important;
+  --ink: #262c38 !important;
+  --ink-soft: #4b5568 !important;
+  --ink-faint: #68727f !important;
+  --line: #c9bb96 !important;
+  --line-soft: #e8e0cb !important;
+  --hover: #f2ebd9 !important;
+  --field: #fbf7ed !important;
+  --mark: #a8791f !important;
+  --mark-bg: #f4e7c6 !important;
+  --margin: #ae3a2c !important;
+  --ok: #2e7a5b !important;
+  --vignette: radial-gradient(ellipse at 18% -10%, rgba(255, 251, 238, 0.6), transparent 55%) !important;
+}
+:root[data-store-theme='classic'][data-theme='dark'] {
+  --kk-signature: #d3a544;
+  --paper: #141821 !important;
+  --sheet: #1b2029 !important;
+  --grid: #2a303c !important;
+  --ink: #ede7d8 !important;
+  --ink-soft: #c3bcaa !important;
+  --ink-faint: #958d7c !important;
+  --line: #3a4049 !important;
+  --line-soft: #262b33 !important;
+  --hover: #222731 !important;
+  --field: #171b24 !important;
+  --mark: #d3a544 !important;
+  --mark-bg: #3a3220 !important;
+  --margin: #d4634f !important;
+  --ok: #77be95 !important;
+}
+:root[data-store-theme='classic']:not([data-theme='light']):not([data-theme='dark']) {
+  --kk-signature: #d3a544;
+  --paper: #141821 !important;
+  --sheet: #1b2029 !important;
+  --grid: #2a303c !important;
+  --ink: #ede7d8 !important;
+  --ink-soft: #c3bcaa !important;
+  --ink-faint: #958d7c !important;
+  --line: #3a4049 !important;
+  --line-soft: #262b33 !important;
+  --hover: #222731 !important;
+  --field: #171b24 !important;
+  --mark: #d3a544 !important;
+  --mark-bg: #3a3220 !important;
+  --margin: #d4634f !important;
+  --ok: #77be95 !important;
+}
+
+/* ------------------------------------------------------------------
+   SCHOOL — the red margin line, a blue pencil, a brass compass
+   ------------------------------------------------------------------ */
+:root[data-store-theme='school'] {
+  --kk-signature: #b2472e;
+  --paper: #ebe3d0 !important;
+  --sheet: #f9f5e9 !important;
+  --grid: #d8cfb4 !important;
+  --ink: #2a333c !important;
+  --ink-soft: #4f5c66 !important;
+  --ink-faint: #6f7a78 !important;
+  --line: #c4b489 !important;
+  --line-soft: #e5ddca !important;
+  --hover: #f0eadb !important;
+  --field: #fbf8ee !important;
+  --mark: #b2472e !important;
+  --mark-bg: #f3dfd7 !important;
+  --margin: #2f6ba8 !important;
+  --ok: #467a58 !important;
+  --vignette: radial-gradient(ellipse at 50% -10%, rgba(255, 252, 240, 0.72), transparent 55%) !important;
+}
+:root[data-store-theme='school'][data-theme='dark'],
+:root[data-store-theme='school']:not([data-theme='light']):not([data-theme='dark']) {
+  --kk-signature: #d0705a;
+  --paper: #161a1f !important;
+  --sheet: #1e232a !important;
+  --grid: #2c333c !important;
+  --ink: #e7e2d3 !important;
+  --ink-soft: #bbb5a6 !important;
+  --ink-faint: #8c8879 !important;
+  --line: #3a424c !important;
+  --line-soft: #262c33 !important;
+  --hover: #232930 !important;
+  --field: #191e25 !important;
+  --mark: #d0705a !important;
+  --mark-bg: #3a211c !important;
+  --margin: #6fa6dc !important;
+  --ok: #7fbe93 !important;
+}
+
+/* ------------------------------------------------------------------
+   FOOTBALL — floodlit turf, gold trim, a red corner flag
+   ------------------------------------------------------------------ */
+:root[data-store-theme='football'] {
+  --kk-signature: #4fae6a;
+  --paper: #0b2719 !important;
+  --sheet: #f3f8f1 !important;
+  --grid: #1d4a30 !important;
+  --ink: #16221a !important;
+  --ink-soft: #45574a !important;
+  --ink-faint: #6a7a6d !important;
+  --line: #a8c6ae !important;
+  --line-soft: #dae7dc !important;
+  --hover: #e3ede2 !important;
+  --field: #fafcf8 !important;
+  --mark: #d9b83e !important;
+  --mark-bg: #f6edc4 !important;
+  --margin: #b23a32 !important;
+  --ok: #2e7d50 !important;
+  --vignette: radial-gradient(circle at 50% 0, rgba(97, 196, 116, 0.25), transparent 48%) !important;
+}
+
+/* ------------------------------------------------------------------
+   GALAXY — nebula violet and a rose flare
+   ------------------------------------------------------------------ */
+:root[data-store-theme='galaxy'] {
+  --kk-signature: #8b7cff;
+  --paper: #070918 !important;
+  --sheet: #111631 !important;
+  --grid: #242a5a !important;
+  --ink: #efedfa !important;
+  --ink-soft: #bec2dc !important;
+  --ink-faint: #878eb6 !important;
+  --line: #343c78 !important;
+  --line-soft: #20264c !important;
+  --hover: #181d3e !important;
+  --field: #0d1230 !important;
+  --mark: #8b7cff !important;
+  --mark-bg: #242056 !important;
+  --margin: #ff6db5 !important;
+  --ok: #63e6b1 !important;
+}
+
+/* ------------------------------------------------------------------
+   CYBER — terminal mint on a cold circuit board
+   ------------------------------------------------------------------ */
+:root[data-store-theme='cyber'] {
+  --kk-signature: #31f2c2;
+  --paper: #061415 !important;
+  --sheet: #0c171a !important;
+  --grid: #12343a !important;
+  --ink: #def7f1 !important;
+  --ink-soft: #9fc3bd !important;
+  --ink-faint: #6d948e !important;
+  --line: #1b4d53 !important;
+  --line-soft: #123139 !important;
+  --hover: #0f2428 !important;
+  --field: #081517 !important;
+  --mark: #31f2c2 !important;
+  --mark-bg: #08392f !important;
+  --margin: #ff4f9a !important;
+  --ok: #55e0a4 !important;
+}
+
+/* ------------------------------------------------------------------
+   NATURE — leaf green and warm soil
+   ------------------------------------------------------------------ */
+:root[data-store-theme='nature'] {
+  --kk-signature: #5b8a51;
+  --paper: #dce8d5 !important;
+  --sheet: #f6fbf3 !important;
+  --grid: #c2d2b9 !important;
+  --ink: #22362a !important;
+  --ink-soft: #546a5b !important;
+  --ink-faint: #76897a !important;
+  --line: #b4c9a8 !important;
+  --line-soft: #dbe6d7 !important;
+  --hover: #e9f1e5 !important;
+  --field: #fafdf9 !important;
+  --mark: #5b8a51 !important;
+  --mark-bg: #dcebd5 !important;
+  --margin: #9b574a !important;
+  --ok: #4a8053 !important;
+  --vignette: radial-gradient(circle at 15% -10%, rgba(250, 255, 245, 0.58), transparent 44%) !important;
+}
+
+/* ------------------------------------------------------------------
+   ACADEMIA — antique gilt, parchment pages, a library at night
+   ------------------------------------------------------------------ */
+:root[data-store-theme='academia'] {
+  --kk-signature: #a7753e;
+  --paper: #2a211c !important;
+  --sheet: #f2e7d5 !important;
+  --grid: #5b4738 !important;
+  --ink: #2f241c !important;
+  --ink-soft: #5c4a3e !important;
+  --ink-faint: #7f6c5c !important;
+  --line: #c9ac86 !important;
+  --line-soft: #e2cfb5 !important;
+  --hover: #e9dbc5 !important;
+  --field: #f8f0e2 !important;
+  --mark: #a7753e !important;
+  --mark-bg: #eedcbf !important;
+  --margin: #8d443a !important;
+  --ok: #47705a !important;
+  --vignette: radial-gradient(circle at 50% -10%, rgba(255, 243, 216, 0.3), transparent 48%) !important;
+}
+/* The library walls are dark while the pages are parchment, so the text
+   colour has to follow the surface it sits on. */
+html[data-store-theme='academia'] body {
+  color: #e9dcc6;
+}
+html[data-store-theme='academia'] :is(.hero, .dashMetric, .dashCard, .statCard, .settingCard, .pomo, .panel) {
+  color: var(--ink);
+}
+
+/* ------------------------------------------------------------------
+   OCEAN — lagoon teal under a cold sky
+   ------------------------------------------------------------------ */
+:root[data-store-theme='ocean'] {
+  --kk-signature: #2e9fb8;
+  --paper: #071c2b !important;
+  --sheet: #0c2b3a !important;
+  --grid: #1d6275 !important;
+  --ink: #e2f5fb !important;
+  --ink-soft: #a3d2e2 !important;
+  --ink-faint: #6ca9bc !important;
+  --line: #2a5f78 !important;
+  --line-soft: #183f54 !important;
+  --hover: #0f3344 !important;
+  --field: #061e2d !important;
+  --mark: #55d6ff !important;
+  --mark-bg: #0a3344 !important;
+  --margin: #6fd6c4 !important;
+  --ok: #3fb8a0 !important;
+}
+
+/* ------------------------------------------------------------------
+   SUNSET — the amber hour
+   ------------------------------------------------------------------ */
+:root[data-store-theme='sunset'] {
+  --kk-signature: #ffad5b;
+  --paper: #341624 !important;
+  --sheet: #5a2630 !important;
+  --grid: #8e4b36 !important;
+  --ink: #f8ebdd !important;
+  --ink-soft: #e7b7a6 !important;
+  --ink-faint: #c08779 !important;
+  --line: #a85a52 !important;
+  --line-soft: #6b3a35 !important;
+  --hover: #4a2530 !important;
+  --field: #2c1421 !important;
+  --mark: #ffad5b !important;
+  --mark-bg: #4d2531 !important;
+  --margin: #ff6f8e !important;
+  --ok: #8bb87a !important;
+}
+
+/* ------------------------------------------------------------------
+   MONO — carbon and chalk, a poster with a vermillion stamp
+   ------------------------------------------------------------------ */
+:root[data-store-theme='mono'] {
+  --kk-signature: #232326;
+  --paper: #eae9e5 !important;
+  --sheet: #f6f5f1 !important;
+  --grid: #b8b7b2 !important;
+  --ink: #191a1e !important;
+  --ink-soft: #37383e !important;
+  --ink-faint: #63646b !important;
+  --line: #b4b3ae !important;
+  --line-soft: #deddd8 !important;
+  --hover: #f2f1ec !important;
+  --field: #fbfaf7 !important;
+  --mark: #232326 !important;
+  --mark-bg: #e9e8e3 !important;
+  --margin: #d93b32 !important;
+  --ok: #2f7a4c !important;
+  --shadow: 5px 5px 0 #1b1b1f !important;
+  --vignette: none !important;
+}
+html[data-store-theme='mono'] body {
+  background-image: radial-gradient(circle, #1b1b1f14 1px, transparent 1.6px) 0 0/8px 8px !important;
+}
+
+/* ------------------------------------------------------------------
+   FROST — glacier mineral, quiet and low glare
+   ------------------------------------------------------------------ */
+:root[data-store-theme='frost'] {
+  --kk-signature: #4a7a93;
+  --paper: #e9efee !important;
+  --sheet: #f5f8f7 !important;
+  --grid: #d0dcda !important;
+  --ink: #2e4448 !important;
+  --ink-soft: #566b6e !important;
+  --ink-faint: #6e8385 !important;
+  --line: #c7d6d4 !important;
+  --line-soft: #dee8e6 !important;
+  --hover: #e6eeec !important;
+  --field: #fafcfb !important;
+  --mark: #557b7d !important;
+  --mark-bg: #dbe8e5 !important;
+  --margin: #986c69 !important;
+  --ok: #668b7f !important;
+}
+html[data-store-theme='frost'] body {
+  background-image:
+    radial-gradient(ellipse at 8% 0%, rgba(250, 253, 252, 0.82), transparent 34%),
+    radial-gradient(ellipse at 94% 12%, rgba(185, 206, 202, 0.34), transparent 35%),
+    radial-gradient(ellipse at 52% 100%, rgba(207, 222, 218, 0.28), transparent 48%),
+    linear-gradient(148deg, #ecf1ef 0%, #e9efee 48%, #e4ecea 100%) !important;
+}
+html[data-store-theme='frost'] ::selection {
+  background: #c7dbd6;
+  color: #28474a;
+}
+
+/* ------------------------------------------------------------------
+   ROSE — sand and dusty rose, quiet and elegant
+   ------------------------------------------------------------------ */
+:root[data-store-theme='rose'] {
+  --kk-signature: #9c5a4c;
+  --paper: #e7d3c2 !important;
+  --sheet: #f7eee7 !important;
+  --grid: #d2b1a4 !important;
+  --ink: #3a1a2d !important;
+  --ink-soft: #5c2e45 !important;
+  --ink-faint: #73485b !important;
+  --line: #d2b1a4 !important;
+  --line-soft: #ead8ce !important;
+  --hover: #f1e2d9 !important;
+  --field: #fcf6f2 !important;
+  --mark: #9c5a4c !important;
+  --mark-bg: #efd9d2 !important;
+  --margin: #a6566a !important;
+  --ok: #5e8a6a !important;
+  --vignette: radial-gradient(ellipse at 20% -10%, rgba(244, 218, 212, 0.34), transparent 55%) !important;
+}
+
+/* ------------------------------------------------------------------
+   GOLDEN — golden hour through a dusty window
+   ------------------------------------------------------------------ */
+:root[data-store-theme='golden'] {
+  --kk-signature: #f4a900;
+  --paper: #2b241f !important;
+  --sheet: #3a312b !important;
+  --grid: #5a4d43 !important;
+  --ink: #f6eddb !important;
+  --ink-soft: #dbc5a4 !important;
+  --ink-faint: #b49d7d !important;
+  --line: #6a5848 !important;
+  --line-soft: #4a3e34 !important;
+  --hover: #43382f !important;
+  --field: #241d18 !important;
+  --mark: #f4a900 !important;
+  --mark-bg: #4a3a1c !important;
+  --margin: #b04f55 !important;
+  --ok: #9db56b !important;
+}
+
+/* ------------------------------------------------------------------
+   METRO — a transit map, station blue and a red line
+   ------------------------------------------------------------------ */
+:root[data-store-theme='metro'] {
+  --kk-signature: #1677d2;
+  --paper: #e7edf4 !important;
+  --sheet: #fafcfe !important;
+  --grid: #d5dfe9 !important;
+  --ink: #18283d !important;
+  --ink-soft: #43566e !important;
+  --ink-faint: #60748b !important;
+  --line: #c6d2e0 !important;
+  --line-soft: #dfe7ee !important;
+  --hover: #eff4f9 !important;
+  --field: #fafcfe !important;
+  --mark: #1677d2 !important;
+  --mark-bg: #dae9f9 !important;
+  --margin: #d9503f !important;
+  --ok: #238a68 !important;
+  --vignette: radial-gradient(circle at 14% 0, #f7fbff, transparent 45%) !important;
+}
+html[data-store-theme='metro'] nav.tabs {
+  background: #f7fafde8 !important;
+  border-color: #c6d2e0 !important;
+}
+html[data-store-theme='metro'] .tab[aria-selected='true'] {
+  color: #f2f7fd !important;
+}
+html[data-store-theme='metro'] .tkV49Hero {
+  background: linear-gradient(110deg, #fafcfe, #e6f0fa) !important;
+}
+
+/* ------------------------------------------------------------------
+   BLUEPRINT — drafting cyan on a navy sheet
+   ------------------------------------------------------------------ */
+:root[data-store-theme='blueprint'] {
+  --kk-signature: #55d6ff;
+  --paper: #081b33 !important;
+  --sheet: #102b4b !important;
+  --grid: #244769 !important;
+  --ink: #e4f1fa !important;
+  --ink-soft: #b1cbe2 !important;
+  --ink-faint: #8ca9c3 !important;
+  --line: #315779 !important;
+  --line-soft: #234665 !important;
+  --hover: #18395b !important;
+  --field: #0b223d !important;
+  --mark: #55d6ff !important;
+  --mark-bg: #123b55 !important;
+  --margin: #ffce6a !important;
+  --ok: #66d6ae !important;
+  --shadow: 0 18px 38px -28px #05101f !important;
+}
+
+/* ------------------------------------------------------------------
+   SWISS — signal red on a strict grid
+   ------------------------------------------------------------------ */
+:root[data-store-theme='swiss'] {
+  --kk-signature: #e53935;
+  --paper: #f1f0ec !important;
+  --sheet: #fbfbf9 !important;
+  --grid: #e4e2dc !important;
+  --ink: #1a1a1e !important;
+  --ink-soft: #40404a !important;
+  --ink-faint: #65645f !important;
+  --line: #d0cec7 !important;
+  --line-soft: #e6e4de !important;
+  --hover: #f6f5f1 !important;
+  --field: #fcfcfa !important;
+  --mark: #e53935 !important;
+  --mark-bg: #fbe6e4 !important;
+  --margin: #1a1a1e !important;
+  --ok: #26745b !important;
+}
+html[data-store-theme='swiss'] body {
+  background-image: linear-gradient(90deg, transparent 0 7%, #1a1a1e0a 7% 7.05%, transparent 7.05% 100%) !important;
+}
+
+/* ------------------------------------------------------------------
+   FIRE — ember copper in a charcoal forge
+   ------------------------------------------------------------------ */
+:root[data-store-theme='fire'] {
+  --kk-signature: #ef7138;
+  --paper: #1b100d !important;
+  --sheet: #281914 !important;
+  --grid: #39221a !important;
+  --ink: #f6e7d7 !important;
+  --ink-soft: #debb9e !important;
+  --ink-faint: #b08971 !important;
+  --line: #71432f !important;
+  --line-soft: #4b2b20 !important;
+  --hover: #3a2118 !important;
+  --field: #1e120e !important;
+  --mark: #ef7138 !important;
+  --mark-bg: #4b2519 !important;
+  --margin: #ffc17a !important;
+  --ok: #d0ad78 !important;
+}
+
+/* ------------------------------------------------------------------
+   ANIME — sakura crimson under an inked night sky
+   ------------------------------------------------------------------ */
+:root[data-store-theme='anime'] {
+  --kk-signature: #ff5576;
+  --paper: #080e1a !important;
+  --sheet: #1b2437 !important;
+  --grid: #2b3850 !important;
+  --ink: #f0f1f7 !important;
+  --ink-soft: #c0c9d7 !important;
+  --ink-faint: #93a0b5 !important;
+  --line: #46546d !important;
+  --line-soft: #303d55 !important;
+  --hover: #29364d !important;
+  --field: #151e30 !important;
+  --mark: #ff5576 !important;
+  --mark-bg: #492b3d !important;
+  --margin: #79e2ff !important;
+  --ok: #75d4bd !important;
+}
+
+/* ------------------------------------------------------------------
+   MANGA — printed ink, warm paper and a vermillion seal
+   ------------------------------------------------------------------ */
+:root[data-store-theme='manga'] {
+  --kk-signature: #9a4033;
+  --paper: #d7d4ce !important;
+  --sheet: #e9e6df !important;
+  --grid: #c2beb6 !important;
+  --ink: #2b2a30 !important;
+  --ink-soft: #4e4d55 !important;
+  --ink-faint: #6e6d76 !important;
+  --line: #a9a69f !important;
+  --line-soft: #d8d5ce !important;
+  --hover: #e1ded7 !important;
+  --field: #f2f0ea !important;
+  --mark: #55565b !important;
+  --mark-bg: #dedcd5 !important;
+  --margin: #2b2a30 !important;
+  --ok: #4f6b57 !important;
+}
+
+/* ------------------------------------------------------------------
+   The signature colour inside the store
+   Every card carries the identity colour of the theme it sells, so
+   the shop reads as a set of distinct materials instead of one
+   interface with eighteen accents.
+   ------------------------------------------------------------------ */
+.themeCard--classic {
+  --kk-card-signature: #a8791f;
+}
+.themeCard--school {
+  --kk-card-signature: #b2472e;
+}
+.themeCard--football {
+  --kk-card-signature: #4fae6a;
+}
+.themeCard--galaxy {
+  --kk-card-signature: #8b7cff;
+}
+.themeCard--cyber {
+  --kk-card-signature: #31f2c2;
+}
+.themeCard--nature {
+  --kk-card-signature: #5b8a51;
+}
+.themeCard--academia {
+  --kk-card-signature: #a7753e;
+}
+.themeCard--ocean {
+  --kk-card-signature: #2e9fb8;
+}
+.themeCard--sunset {
+  --kk-card-signature: #ffad5b;
+}
+.themeCard--mono {
+  --kk-card-signature: #232326;
+}
+.themeCard--frost {
+  --kk-card-signature: #4a7a93;
+}
+.themeCard--rose {
+  --kk-card-signature: #9c5a4c;
+}
+.themeCard--golden {
+  --kk-card-signature: #f4a900;
+}
+.themeCard--metro {
+  --kk-card-signature: #1677d2;
+}
+.themeCard--blueprint {
+  --kk-card-signature: #55d6ff;
+}
+.themeCard--swiss {
+  --kk-card-signature: #e53935;
+}
+.themeCard--fire {
+  --kk-card-signature: #ef7138;
+}
+.themeCard--anime {
+  --kk-card-signature: #ff5576;
+}
+.themeCard--manga {
+  --kk-card-signature: #9a4033;
+}
+html[data-store-theme] .storePreview__bar {
+  background: var(--kk-card-signature, var(--preview-accent)) !important;
+}
+html[data-store-theme] body .storeCard {
+  border-inline-start: 3px solid var(--kk-card-signature, transparent) !important;
+}
+html[data-store-theme] body .storeCard.is-active {
+  border-inline-start-width: 4px !important;
+}
+/* The painted edge. Some themes set the card border with !important, so
+   the signature is also painted as a strip that no rule can take away. */
+html[data-store-theme] body .storeCard::before {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: 4px;
+  background: var(--kk-card-signature, transparent);
+  pointer-events: none;
+  z-index: 1;
+}
