@@ -3,7 +3,7 @@ setlocal EnableExtensions
 
 rem Keep a dedicated CMD window open so the user can read the result.
 if /I not "%~1"=="--persistent" (
-  start "KashKool v72 Installer Builder" "%ComSpec%" /k ""%~f0" --persistent"
+  start "KashKool v74 Installer Builder" "%ComSpec%" /k ""%~f0" --persistent"
   exit /b 0
 )
 
@@ -17,7 +17,7 @@ if errorlevel 1 (
 )
 
 echo ==========================================
-echo       KashKool v72 - Windows Installer
+echo       KashKool v74 - Windows Installer
 echo ==========================================
 echo.
 echo This build creates the Setup installer only.
