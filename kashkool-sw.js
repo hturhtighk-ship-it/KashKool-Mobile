@@ -1,5 +1,5 @@
 /* KashKool offline shell. Local timers continue in the desktop tray build. */
-const CACHE_NAME = 'kashkool-shell-v72';
+const CACHE_NAME = 'kashkool-shell-v74';
 const SHELL_FILES = [
   './',
   './index.html',
@@ -8,6 +8,7 @@ const SHELL_FILES = [
   './assets/css/kashkool-v71.css',
   './assets/css/kashkool-v72.css',
   './assets/css/kashkool-v73.css',
+  './assets/css/kashkool-v74.css',
   './assets/js/00-bootstrap.js',
   './assets/js/01-app-core.js',
   './assets/js/02-motion-v2-js.js',
@@ -43,6 +44,7 @@ const SHELL_FILES = [
   './assets/js/32-v68-official-image-fallback.js',
   './assets/js/33-v71-cinematic-themes.js',
   './assets/js/34-v72-signature-press.js',
+  './assets/js/35-v74-page-transitions.js',
   './assets/js/99-notifications.js',
 ];
 
